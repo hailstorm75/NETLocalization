@@ -1,0 +1,80 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frameworks", "Frameworks", "{E1056371-6759-48BF-892B-71C2B711551B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{BB258DC6-46F9-41E4-8D80-FA439AE39AA8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "exp", "exp", "{6AB5D356-B46E-42DF-83A0-E848D4C5CE61}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bench", "bench", "{F994F82F-4D4B-4581-A47D-742AAF2BAD7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Localization.WPF", "src\Framework\Localization.WPF\Localization.WPF.csproj", "{F604F68E-27FD-936E-BA3B-2DBFBB88132C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Localization.Avalonia", "src\Framework\Localization.Avalonia\Localization.Avalonia.csproj", "{14DE48FE-52F5-AB59-06DD-AEB2A639C783}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Localization.MAUI", "src\Framework\Localization.MAUI\Localization.MAUI.csproj", "{2E9668CB-F8AA-2548-9B36-E4AE164826F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Localization.Razor", "src\Framework\Localization.Razor\Localization.Razor.csproj", "{23933E98-4DF0-CA56-06BA-80DBC0195341}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Generators", "Generators", "{370667A9-53B1-44CE-8BD4-9E5A0DEC2C82}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{99C80661-184A-4A3F-8BFF-3AB5CB3BC8A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Localization.Generator", "src\Generators\Localization.Generator\Localization.Generator.csproj", "{A906BFD2-9E0D-6874-4125-2C019932904A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Localization.Shared", "src\Shared\Localization.Shared\Localization.Shared.csproj", "{EB8A127A-F867-47D1-9B52-2EB2D646808B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F604F68E-27FD-936E-BA3B-2DBFBB88132C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F604F68E-27FD-936E-BA3B-2DBFBB88132C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F604F68E-27FD-936E-BA3B-2DBFBB88132C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F604F68E-27FD-936E-BA3B-2DBFBB88132C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14DE48FE-52F5-AB59-06DD-AEB2A639C783}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14DE48FE-52F5-AB59-06DD-AEB2A639C783}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14DE48FE-52F5-AB59-06DD-AEB2A639C783}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14DE48FE-52F5-AB59-06DD-AEB2A639C783}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E9668CB-F8AA-2548-9B36-E4AE164826F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E9668CB-F8AA-2548-9B36-E4AE164826F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E9668CB-F8AA-2548-9B36-E4AE164826F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E9668CB-F8AA-2548-9B36-E4AE164826F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23933E98-4DF0-CA56-06BA-80DBC0195341}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23933E98-4DF0-CA56-06BA-80DBC0195341}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23933E98-4DF0-CA56-06BA-80DBC0195341}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23933E98-4DF0-CA56-06BA-80DBC0195341}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A906BFD2-9E0D-6874-4125-2C019932904A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A906BFD2-9E0D-6874-4125-2C019932904A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A906BFD2-9E0D-6874-4125-2C019932904A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A906BFD2-9E0D-6874-4125-2C019932904A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB8A127A-F867-47D1-9B52-2EB2D646808B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB8A127A-F867-47D1-9B52-2EB2D646808B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB8A127A-F867-47D1-9B52-2EB2D646808B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB8A127A-F867-47D1-9B52-2EB2D646808B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E1056371-6759-48BF-892B-71C2B711551B} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{F604F68E-27FD-936E-BA3B-2DBFBB88132C} = {E1056371-6759-48BF-892B-71C2B711551B}
+		{14DE48FE-52F5-AB59-06DD-AEB2A639C783} = {E1056371-6759-48BF-892B-71C2B711551B}
+		{2E9668CB-F8AA-2548-9B36-E4AE164826F3} = {E1056371-6759-48BF-892B-71C2B711551B}
+		{23933E98-4DF0-CA56-06BA-80DBC0195341} = {E1056371-6759-48BF-892B-71C2B711551B}
+		{370667A9-53B1-44CE-8BD4-9E5A0DEC2C82} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{99C80661-184A-4A3F-8BFF-3AB5CB3BC8A9} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{A906BFD2-9E0D-6874-4125-2C019932904A} = {370667A9-53B1-44CE-8BD4-9E5A0DEC2C82}
+		{EB8A127A-F867-47D1-9B52-2EB2D646808B} = {99C80661-184A-4A3F-8BFF-3AB5CB3BC8A9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3BBAA1A3-C973-4BF3-83CC-5940920B003E}
+	EndGlobalSection
+EndGlobal
