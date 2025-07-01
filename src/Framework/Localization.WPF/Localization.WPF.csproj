@@ -7,4 +7,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Localization.Shared\Localization.Shared.csproj" />
+  </ItemGroup>
+
 </Project>
