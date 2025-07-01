@@ -8,22 +8,22 @@ namespace Localization.Shared.Attributes;
 [AttributeUsage(AttributeTargets.Enum | AttributeTargets.Field)]
 public sealed class LocalizedEnumFieldAttribute : Attribute
 {
-  /// <summary>
-  /// Namespace of the translation
-  /// </summary>
-  public string Namespace { get; }
+    /// <summary>
+    /// Namespace of the translation
+    /// </summary>
+    public string Namespace { get; }
 
-  /// <summary>
-  /// Key of the translation
-  /// </summary>
-  public string Key { get; set; }
+    /// <summary>
+    /// Key of the translation
+    /// </summary>
+    public string Key { get; set; }
 
-  /// <summary>
-  /// Default constructor
-  /// </summary>
-  public LocalizedEnumFieldAttribute(string @namespace, [CallerMemberName] string? key = "")
-  {
-    Key = key ?? string.Empty;
-    Namespace = @namespace;
-  }
+    /// <summary>
+    /// Default constructor
+    /// </summary>
+    public LocalizedEnumFieldAttribute(string @namespace, [CallerMemberName] string? key = "")
+    {
+        Key = key ?? string.Empty;
+        Namespace = @namespace;
+    }
 }
