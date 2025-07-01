@@ -1,11 +1,15 @@
 ﻿using Localization.Shared.Interfaces;
 using Localization.Shared.Models;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Localization.Shared;
 
+/// <summary>
+/// Singleton manager for handling culture and language changes in the application
+/// </summary>
 public static class CultureManager
 {
-    private static ITranslator? _translator;
+    private static ITranslator? TRANSLATOR;
 
     #region Events
 
@@ -40,7 +44,7 @@ public static class CultureManager
         if (service is not ITranslator translator)
             throw new InvalidOperationException($"The '{nameof(ITranslator)}' service is not registered in the service provider.");
 
-        _translator = translator;
+        TRANSLATOR = translator;
     }
     
     /// <summary>
@@ -48,15 +52,13 @@ public static class CultureManager
     /// </summary>
     /// <param name="translator">Translator instance to initialize with</param>
     public static void Initialize(ITranslator translator)
-    {
-        _translator = translator;
-    }
+        => TRANSLATOR = translator;
 
     /// <summary>
     /// Get the current translator instance
     /// </summary>
     /// <returns>Current translator instance. <c>null</c> if the <see cref="CultureManager"/> is not initialized</returns>
-    public static ITranslator? GetTranslator() => _translator;
+    public static ITranslator? GetTranslator() => TRANSLATOR;
 
     /// <summary>
     /// Changes the language of the application
@@ -67,7 +69,7 @@ public static class CultureManager
     /// <exception cref="ArgumentException">Throw when the <paramref name="language"/> parameter is invalid</exception>
     public static void SetLanguage(Language language)
     {
-        if (_translator is null)
+        if (TRANSLATOR is null)
             throw new InvalidOperationException($"The {nameof(CultureManager)} is not initialized. Please call '{nameof(Initialize)}' first.");
         if (language is null)
             throw new ArgumentNullException(nameof(language), $"The {nameof(language)} parameter cannot be null.");
@@ -75,9 +77,9 @@ public static class CultureManager
             throw new ArgumentException($"The language '{nameof(language.Key)}' is invalid.", nameof(language));
 
         // If the language is not allowed...
-        if (_translator.AllowedLanguages.Count > 0 && !_translator.AllowedLanguages.Contains(language.Key))
+        if (TRANSLATOR.AllowedLanguages.Count > 0 && !TRANSLATOR.AllowedLanguages.Contains(language.Key))
             // Fallback to the default culture
-            language = _translator.FallbackCulture;
+            language = TRANSLATOR.FallbackCulture;
 
         // Set the current culture
         LanguageChanged?.Invoke(null, language);
@@ -87,6 +89,22 @@ public static class CultureManager
     /// Notifies localized elements about a culture change
     /// </summary>
     internal static void InternallyNotifyCultureChanged(Language language) => InternalCultureChanged?.Invoke(null, new CultureChangedMessage(language.Key));
+
+    /// <summary>
+    /// Attempts to retrieve a localized string from the translator
+    /// </summary>
+    /// <param name="namespace">Localized string namespace</param>
+    /// <param name="key">Localized string key</param>
+    /// <param name="result">Retrieved localized string. Set to <c>null</c> if no string was found</param>
+    /// <returns><c>true</c> if the retrieval was a success</returns>
+    internal static bool TryRetrieveString(string @namespace, string key, [NotNullWhen(true)] out LString? result)
+    {
+        if (TRANSLATOR is not null)
+            return TRANSLATOR.TryGetString(key, @namespace, out result);
+
+        result = null;
+        return false;
+    }
 
     #endregion
 }

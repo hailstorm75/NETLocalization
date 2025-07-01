@@ -187,8 +187,7 @@ public sealed class TranslationsSourceGenerator : IIncrementalGenerator
             indentWriter.Indent++;
 
             {
-                indentWriter.WriteLine($"Key = {set.Key}.Key,");
-                indentWriter.WriteLine($"Namespace = {TRANSLATIONS_NAMESPACE},");
+                indentWriter.WriteLine($"Source = {set.Key},");
 
                 if (set.Items.Count > 0)
                 {

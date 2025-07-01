@@ -8,8 +8,7 @@ namespace Localization.Shared.JSON;
 /// <summary>
 /// JSON converter for <see cref="LString"/> instances
 /// </summary>
-public sealed class LStringJsonConverter
-    : JsonConverter<LString>
+public sealed class LStringJsonConverter : JsonConverter<LString>
 {
     /// <inheritdoc />
     public override LString Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
@@ -24,12 +23,14 @@ public sealed class LStringJsonConverter
         if (@namespace is null || key is null)
             throw new JsonException();
 
-        var locString = new LString
+        if (CultureManager.TryRetrieveString(@namespace, key, out var cached))
+            return cached;
+
+        return new LString
         {
             Namespace = @namespace,
             Key = key
         };
-        return locString;
     }
 
     /// <inheritdoc />

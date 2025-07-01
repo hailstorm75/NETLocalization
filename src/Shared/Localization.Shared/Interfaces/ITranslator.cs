@@ -80,6 +80,15 @@ public interface ITranslator
     string Translate(string key, string @namespace, string culture);
 
     /// <summary>
+    /// Attempts to retrieve a localized string with the given <paramref name="key"/> and <paramref name="namespace"/>.
+    /// </summary>
+    /// <param name="key">Translation set key</param>
+    /// <param name="namespace">Translation set namespace</param>
+    /// <param name="result">Source localized string</param>
+    /// <returns><c>true</c> if the retrieval was a success</returns>
+    bool TryGetString(string key, string @namespace, out LString? result);
+
+    /// <summary>
     /// Translates a parametrized string with the given <paramref name="key"/> and <paramref name="namespace"/>
     /// </summary>
     /// <param name="key">Translation set key</param>

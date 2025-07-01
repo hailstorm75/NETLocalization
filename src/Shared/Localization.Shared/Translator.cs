@@ -2,6 +2,7 @@
 using Localization.Shared.Models;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
 namespace Localization.Shared;
@@ -23,10 +24,10 @@ public class Translator : ITranslator, IDisposable
     #region Properties
 
     /// <inheritdoc />
-    public string CurrentCulture { get; private set; } = "en";
+    public virtual string CurrentCulture { get; private set; } = "en";
 
     /// <inheritdoc />
-    public string FallbackCulture { get; init; } = "en";
+    public virtual string FallbackCulture { get; init; } = "en";
 
     /// <inheritdoc />
     public IReadOnlyCollection<Language> LoadedLanguages => _loadedLanguages.Values;
@@ -118,7 +119,7 @@ public class Translator : ITranslator, IDisposable
     }
 
     /// <inheritdoc />
-    public string Translate(string key, string @namespace, string culture)
+    public virtual string Translate(string key, string @namespace, string culture)
     {
         using var scope = _logger.BeginScope(nameof(Translate));
     
@@ -143,16 +144,37 @@ public class Translator : ITranslator, IDisposable
     }
 
     /// <inheritdoc />
-    public string Translate(string key, string @namespace) => Translate(key, @namespace, CurrentCulture);
+    public bool TryGetString(string key, string @namespace, [NotNullWhen(true)] out LString? result)
+    {
+        result = null;
+        
+        using var scope = _logger.BeginScope(nameof(TryGetString));
+        if (!_translations.TryGetValue(@namespace, out var localization))
+        {
+            TranslatorLogger.LogNamespaceNotFound(@namespace, _logger);
+            return false;
+        }
+        if (!localization.TryGetValue(key, out var translationHolder))
+        {
+            TranslatorLogger.LogKeyNotFound(key, @namespace, _logger);
+            return false;
+        }
+
+        result = translationHolder.Source;
+        return true;
+    }
 
     /// <inheritdoc />
-    public string TranslateArgs(string key, string @namespace, object arg) => TranslateArgs(key, @namespace, CurrentCulture, arg);
+    public virtual string Translate(string key, string @namespace) => Translate(key, @namespace, CurrentCulture);
 
     /// <inheritdoc />
-    public string TranslateArgs(string key, string @namespace, params object[] args) => TranslateArgs(key, @namespace, CurrentCulture, args);
+    public virtual string TranslateArgs(string key, string @namespace, object arg) => TranslateArgs(key, @namespace, CurrentCulture, arg);
 
     /// <inheritdoc />
-    public string TranslateArgs(string key, string @namespace, string culture, object arg)
+    public virtual string TranslateArgs(string key, string @namespace, params object[] args) => TranslateArgs(key, @namespace, CurrentCulture, args);
+
+    /// <inheritdoc />
+    public virtual string TranslateArgs(string key, string @namespace, string culture, object arg)
     {
         var localizedString = Translate(key, @namespace, culture);
         var formattedString = string.Format(localizedString, arg);
@@ -170,7 +192,7 @@ public class Translator : ITranslator, IDisposable
     }
 
     /// <inheritdoc />
-    public void ChangeCulture(Language language)
+    public virtual void ChangeCulture(Language language)
     {
         using var scope = _logger.BeginScope(nameof(CurrentCulture));
 

@@ -10,6 +10,7 @@ namespace Localization.Shared.Models;
 [DebuggerDisplay("{String} - {_enumType.FullName,nq}")]
 public sealed class LEnum : INotifyPropertyChanged
 {
+    /// <inheritdoc />
     public event PropertyChangedEventHandler? PropertyChanged;
   
     #region Fields
