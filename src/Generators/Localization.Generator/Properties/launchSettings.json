@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "DebugGeneratorWithConsole": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\..\\..\\exp\\Exp.Console\\Exp.Console.csproj"
+    },
+    "DebugGeneratorWithWPF": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\..\\..\\exp\\Exp.WPF\\Exp.WPF.csproj"
+    }
+  }
+}
