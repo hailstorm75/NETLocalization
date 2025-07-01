@@ -22,4 +22,8 @@
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Shared\Localization.Shared\Localization.Shared.csproj" />
+	</ItemGroup>
+
 </Project>

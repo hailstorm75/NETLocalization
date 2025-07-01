@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frameworks", "Frameworks", "{E1056371-6759-48BF-892B-71C2B711551B}"
 EndProject
@@ -32,6 +32,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exp.Console", "exp\Exp.Console\Exp.Console.csproj", "{A811C0CE-04CE-4839-A0C1-524470055BA0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exp.WPF", "exp\Exp.WPF\Exp.WPF.csproj", "{198B6BE8-4423-418C-AE7F-EBC1F24A07F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exp.MAUI", "exp\Exp.MAUI\Exp.MAUI.csproj", "{54A13F2F-B933-4830-9C6D-2F3BFE7E0245}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +73,12 @@ Global
 		{198B6BE8-4423-418C-AE7F-EBC1F24A07F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{198B6BE8-4423-418C-AE7F-EBC1F24A07F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{198B6BE8-4423-418C-AE7F-EBC1F24A07F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54A13F2F-B933-4830-9C6D-2F3BFE7E0245}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54A13F2F-B933-4830-9C6D-2F3BFE7E0245}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54A13F2F-B933-4830-9C6D-2F3BFE7E0245}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{54A13F2F-B933-4830-9C6D-2F3BFE7E0245}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54A13F2F-B933-4830-9C6D-2F3BFE7E0245}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54A13F2F-B933-4830-9C6D-2F3BFE7E0245}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,6 +95,7 @@ Global
 		{EB8A127A-F867-47D1-9B52-2EB2D646808B} = {99C80661-184A-4A3F-8BFF-3AB5CB3BC8A9}
 		{A811C0CE-04CE-4839-A0C1-524470055BA0} = {6AB5D356-B46E-42DF-83A0-E848D4C5CE61}
 		{198B6BE8-4423-418C-AE7F-EBC1F24A07F3} = {6AB5D356-B46E-42DF-83A0-E848D4C5CE61}
+		{54A13F2F-B933-4830-9C6D-2F3BFE7E0245} = {6AB5D356-B46E-42DF-83A0-E848D4C5CE61}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3BBAA1A3-C973-4BF3-83CC-5940920B003E}
