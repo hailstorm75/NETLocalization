@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Localization.Generator", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Localization.Shared", "src\Shared\Localization.Shared\Localization.Shared.csproj", "{EB8A127A-F867-47D1-9B52-2EB2D646808B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exp.Console", "exp\Exp.Console\Exp.Console.csproj", "{A811C0CE-04CE-4839-A0C1-524470055BA0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{EB8A127A-F867-47D1-9B52-2EB2D646808B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB8A127A-F867-47D1-9B52-2EB2D646808B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB8A127A-F867-47D1-9B52-2EB2D646808B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A811C0CE-04CE-4839-A0C1-524470055BA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A811C0CE-04CE-4839-A0C1-524470055BA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A811C0CE-04CE-4839-A0C1-524470055BA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A811C0CE-04CE-4839-A0C1-524470055BA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{99C80661-184A-4A3F-8BFF-3AB5CB3BC8A9} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{A906BFD2-9E0D-6874-4125-2C019932904A} = {370667A9-53B1-44CE-8BD4-9E5A0DEC2C82}
 		{EB8A127A-F867-47D1-9B52-2EB2D646808B} = {99C80661-184A-4A3F-8BFF-3AB5CB3BC8A9}
+		{A811C0CE-04CE-4839-A0C1-524470055BA0} = {6AB5D356-B46E-42DF-83A0-E848D4C5CE61}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3BBAA1A3-C973-4BF3-83CC-5940920B003E}
