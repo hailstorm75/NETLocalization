@@ -2,23 +2,31 @@
 
 namespace Localization.Generator.Translation;
 
-public sealed class TranslationsCollection : IEnumerable<TranslationSet>
+public sealed class TranslationsCollection : IEnumerable<Translations>
 {
-    private readonly Dictionary<string, TranslationSet> _sets;
+    private readonly Dictionary<string, Translations> _sets;
 
+    /// <summary>
+    /// Translation namespace
+    /// </summary>
     public string Namespace { get; }
 
-    public TranslationsCollection(string @namespace, IEnumerable<TranslationSet> sets)
+    /// <summary>
+    /// Items count in the collection
+    /// </summary>
+    public int Count => _sets.Count;
+
+    public TranslationsCollection(string @namespace, IEnumerable<Translations> sets)
     {
         Namespace = @namespace;
         _sets = sets.ToDictionary(static set => set.Key, static set => set, StringComparer.OrdinalIgnoreCase);
     }
 
-    public TranslationSet this[string key]
+    public Translations this[string key]
         => _sets[key];
 
     /// <inheritdoc />
-    public IEnumerator<TranslationSet> GetEnumerator()
+    public IEnumerator<Translations> GetEnumerator()
         => _sets.Values.GetEnumerator();
 
     /// <inheritdoc />

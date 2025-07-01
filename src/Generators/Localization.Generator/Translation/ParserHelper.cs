@@ -62,14 +62,14 @@ public static class ParserHelper
           .Elements("set")
           .Select(static element => (key: element.Attribute("key"), description: (string?)element.Attribute("description"), element))
           .Where(static tuple => tuple is { key: not null, description: not null })
-          .Select(static tuple => new TranslationSet(
+          .Select(static tuple => new Translations(
             tuple.key!.Value,
             tuple.description!,
             tuple.element
               .Elements("item")
               .Select(static element => (language: (string?)element.Attribute("lang"), value: (string?)element.Value))
               .Where(static tuple => tuple is { language: not null, value: not null })
-              .Select(static tuple => new TranslationItem(tuple.language!, tuple.value!))
+              .Select(static tuple => new Translation(tuple.language!, tuple.value!))
               .ToDictionary(static item => item.Language, static item => item, StringComparer.OrdinalIgnoreCase)));
     
         result = new TranslationsCollection(namespaceAttr.Value, sets);
