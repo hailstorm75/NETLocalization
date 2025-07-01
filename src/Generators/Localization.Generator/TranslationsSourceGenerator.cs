@@ -72,7 +72,7 @@ public sealed class TranslationsSourceGenerator : IIncrementalGenerator
             if (string.IsNullOrEmpty(classSource))
                 continue;
 
-            context.AddSource($"{data.Symbol.ContainingNamespace}_{data.Symbol.Name}.g.cs", classSource);
+            context.AddSource($"{data.Symbol.Name}.g.cs", classSource);
         }
     }
 
