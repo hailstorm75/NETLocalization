@@ -21,5 +21,8 @@ public sealed partial class App
         Ioc.Default.ConfigureServices(serviceCollection.BuildServiceProvider());
 
         CultureManager.Initialize(Ioc.Default);
+
+        var translator = Ioc.Default.GetRequiredService<ITranslator>();
+        translator.RegisterTranslations(Provider.GetTranslations());
     }
 }
