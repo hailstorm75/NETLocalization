@@ -75,7 +75,7 @@ public static class CultureManager
             throw new ArgumentException($"The language '{nameof(language.Key)}' is invalid.", nameof(language));
 
         // If the language is not allowed...
-        if (!_translator.AllowedLanguages.Contains(language.Key))
+        if (_translator.AllowedLanguages.Count > 0 && !_translator.AllowedLanguages.Contains(language.Key))
             // Fallback to the default culture
             language = _translator.FallbackCulture;
 
