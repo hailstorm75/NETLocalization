@@ -2,7 +2,7 @@
 
 namespace Localization.Shared;
 
-public static partial class TranslatorLogger
+internal static partial class TranslatorLogger
 {
     [LoggerMessage(
         Level = LogLevel.Debug,
