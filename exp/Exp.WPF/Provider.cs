@@ -3,4 +3,4 @@
 namespace Exp.WPF;
 
 [TranslationProvider("UIStrings")]
-public partial class Provider;
+public static partial class Provider;

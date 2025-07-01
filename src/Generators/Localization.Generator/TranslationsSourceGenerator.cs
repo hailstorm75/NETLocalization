@@ -1,6 +1,4 @@
 ﻿using Localization.Generator.Translation;
-using Localization.Shared.Attributes;
-using Localization.Shared.Models;
 using System.Collections.Immutable;
 using System.CodeDom.Compiler;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -13,6 +11,9 @@ public sealed class TranslationsSourceGenerator : IIncrementalGenerator
 {
     #region Constants
 
+    private const string ATTRIBUTE_NAME = "Localization.Shared.Attributes.TranslationProviderAttribute";
+    private const string L_STRING_NAME = "Localization.Shared.Models.LString";
+    private const string TRANSLATION_SET_NAME = "Localization.Shared.Models.TranslationSet";
     private const string TOOL_NAME = "Localizations.Generator";
     private const string VERSION = "1.0.0";
     private const string TRANSLATIONS_NAMESPACE = "NAMESPACE";
@@ -35,7 +36,14 @@ public sealed class TranslationsSourceGenerator : IIncrementalGenerator
             {
                 var name = Path.GetFileNameWithoutExtension(text.Path);
 
-                return ParserHelper.TryParse(text.Path, out var collection)
+                if (!text.Path.EndsWith(".xml", StringComparison.OrdinalIgnoreCase))
+                    return null;
+
+                var data = text.GetText()?.ToString();
+                if (data is null)
+                    return null;
+
+                return ParserHelper.TryParse(data, out var collection)
                     ? new TranslationFile(name, collection)
                     : null;
             })
@@ -43,13 +51,13 @@ public sealed class TranslationsSourceGenerator : IIncrementalGenerator
             .Collect();
 
         var targetClasses = context.SyntaxProvider.ForAttributeWithMetadataName(
-                fullyQualifiedMetadataName: typeof(TranslationProviderAttribute).FullName!,
+                fullyQualifiedMetadataName: ATTRIBUTE_NAME,
                 predicate: static (node, _) => node is ClassDeclarationSyntax,
                 transform: static (context, _) =>
                 {
                     var symbol = (INamedTypeSymbol)context.TargetSymbol;
                     var attributeData = context.Attributes
-                        .FirstOrDefault(attr => attr.AttributeClass?.ToDisplayString() == typeof(TranslationProviderAttribute).FullName);
+                        .FirstOrDefault(attr => attr.AttributeClass?.ToDisplayString() == ATTRIBUTE_NAME);
 
                     var source = attributeData?.ConstructorArguments.FirstOrDefault().Value?.ToString();
                     return string.IsNullOrEmpty(source)
@@ -122,7 +130,7 @@ public sealed class TranslationsSourceGenerator : IIncrementalGenerator
         indentWriter.WriteLineNoTabs(string.Empty);
         indentWriter.WriteLine($"namespace {data.Symbol.ContainingNamespace.ToDisplayString()};");
         indentWriter.WriteLineNoTabs(string.Empty);
-        indentWriter.WriteLine($"partial class {data.Symbol.Name}");
+        indentWriter.WriteLine($"static partial class {data.Symbol.Name}");
         indentWriter.WriteLine("{");
         indentWriter.Indent++;
 
@@ -168,23 +176,23 @@ public sealed class TranslationsSourceGenerator : IIncrementalGenerator
         indentWriter.WriteLine("[global::System.Diagnostics.Contracts.Pure]");
         indentWriter.WriteLine("[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]");
         indentWriter.WriteLine($"[global::System.CodeDom.Compiler.GeneratedCode(\"{TOOL_NAME}\", \"{VERSION}\")]");
-        indentWriter.WriteLine($"public static global::System.Collections.Generic.IEnumerable<global::{typeof(TranslationSet).FullName}> GetTranslations()");
+        indentWriter.WriteLine($"public static global::System.Collections.Generic.IEnumerable<global::{TRANSLATION_SET_NAME}> GetTranslations()");
         indentWriter.WriteLine("{");
         indentWriter.Indent++;
 
         foreach (var set in translations)
         {
-            indentWriter.WriteLine($"yield return new global::{typeof(TranslationSet).FullName}");
+            indentWriter.WriteLine($"yield return new global::{TRANSLATION_SET_NAME}");
             indentWriter.WriteLine("{");
             indentWriter.Indent++;
 
             {
-                indentWriter.WriteLine($"{nameof(TranslationSet.Key)} = {set.Key}.{nameof(TranslationSet.Key)},");
-                indentWriter.WriteLine($"{nameof(TranslationSet.Namespace)} = {TRANSLATIONS_NAMESPACE},");
+                indentWriter.WriteLine($"Key = {set.Key}.Key,");
+                indentWriter.WriteLine($"Namespace = {TRANSLATIONS_NAMESPACE},");
 
                 if (set.Items.Count > 0)
                 {
-                    indentWriter.WriteLine($"{nameof(TranslationSet.Translations)} = new global::System.Collections.Generic.Dictionary<string, string>(global::System.StringComparer.OrdinalIgnoreCase)");
+                    indentWriter.WriteLine($"Translations = new global::System.Collections.Generic.Dictionary<string, string>(global::System.StringComparer.OrdinalIgnoreCase)");
                     indentWriter.WriteLine("{");
                     indentWriter.Indent++;
 
@@ -200,7 +208,7 @@ public sealed class TranslationsSourceGenerator : IIncrementalGenerator
                     indentWriter.WriteLine("}");
                 }
                 else
-                    indentWriter.WriteLine($"{nameof(TranslationSet.Translations)} = global::System.Collections.Immutable.ImmutableDictionary<string, string>.Empty");
+                    indentWriter.WriteLine("Translations = global::System.Collections.Immutable.ImmutableDictionary<string, string>.Empty");
             }
 
             indentWriter.Indent--;
@@ -226,13 +234,13 @@ public sealed class TranslationsSourceGenerator : IIncrementalGenerator
 
             indentWriter.WriteLine("[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]");
             indentWriter.WriteLine($"[global::System.CodeDom.Compiler.GeneratedCode(\"{TOOL_NAME}\", \"{VERSION}\")]");
-            indentWriter.WriteLine($"public static global::{typeof(LString).FullName} {set.Key} {{ get; }} = new global::{typeof(LString).FullName}");
+            indentWriter.WriteLine($"public static global::{L_STRING_NAME} {set.Key} {{ get; }} = new global::{L_STRING_NAME}");
             indentWriter.WriteLine("{");
             indentWriter.Indent++;
 
             {
-                indentWriter.WriteLine($"{nameof(LString.Namespace)} = {TRANSLATIONS_NAMESPACE},");
-                indentWriter.WriteLine($"{nameof(LString.Key)} = \"{set.Key}\"");
+                indentWriter.WriteLine($"Namespace = {TRANSLATIONS_NAMESPACE},");
+                indentWriter.WriteLine($"Key = \"{set.Key}\"");
             }
 
             indentWriter.Indent--;

@@ -3,4 +3,4 @@
 namespace Exp.Console;
 
 [TranslationProvider("SomeFile")]
-public partial class Provider;
+public static partial class Provider;
