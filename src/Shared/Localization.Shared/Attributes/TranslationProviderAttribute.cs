@@ -1,5 +1,3 @@
-using System;
-
 namespace Localization.Shared.Attributes;
 
 /// <summary>

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Localization.Shared.Models;
+﻿namespace Localization.Shared.Models;
 
 public sealed class TranslationSet
 {

@@ -1,5 +1,4 @@
 ﻿using System.Runtime.CompilerServices;
-using System;
 
 namespace Localization.Shared.Attributes;
 

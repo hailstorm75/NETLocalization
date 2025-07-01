@@ -1,5 +1,4 @@
-﻿using System;
-using Localization.Shared.Interfaces;
+﻿using Localization.Shared.Interfaces;
 using Localization.Shared.Models;
 
 namespace Localization.Shared;

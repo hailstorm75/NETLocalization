@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Localization.Shared.Models;
+﻿using Localization.Shared.Models;
 
 namespace Localization.Shared.Interfaces;
 

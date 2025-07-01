@@ -1,12 +1,9 @@
 ﻿using Localization.Shared.Attributes;
 using Localization.Shared.Interfaces;
 using System.Runtime.CompilerServices;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
-using System.Linq;
-using System;
 
 namespace Localization.Shared.Models;
 

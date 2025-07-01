@@ -2,9 +2,7 @@
 using Localization.Shared.Models;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Globalization;
-using System;
 
 namespace Localization.Shared;
 
@@ -104,8 +102,10 @@ public class Translator : ITranslator, IDisposable
 
   private void RegisterLanguage(string key)
   {
-    if (!_loadedLanguages.TryAdd(key, key))
+    if (_loadedLanguages.ContainsKey(key))
       return;
+
+    _loadedLanguages.Add(key, key);
 
     TranslatorLogger.LogDiscoveredCulture(key, _logger);
   }
