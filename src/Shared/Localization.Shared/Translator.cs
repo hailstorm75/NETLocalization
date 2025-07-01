@@ -90,6 +90,13 @@ public class Translator : ITranslator, IDisposable
   }
 
   /// <inheritdoc />
+  public void RegisterTranslations(IEnumerable<TranslationSet> translationSets)
+  {
+    foreach (var set in translationSets)
+      RegisterTranslations(set);
+  }
+
+  /// <inheritdoc />
   public bool IsLocalizationKnown(string key, string @namespace)
     => _translations.TryGetValue(@namespace, out var localizations)
        && localizations.ContainsKey(key);

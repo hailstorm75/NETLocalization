@@ -43,6 +43,15 @@ public interface ITranslator
   void RegisterTranslations(TranslationSet translations);
 
   /// <summary>
+  /// Registers multiple <paramref name="translationSets"/>
+  /// </summary>
+  /// <param name="translationSets">Translation sets to register</param>
+  /// <remarks>
+  /// If a <see cref="TranslationSet"/> is already registered, it will be overwritten
+  /// </remarks>
+  void RegisterTranslations(IEnumerable<TranslationSet> translationSets);
+
+  /// <summary>
   /// Determines whether the given <paramref name="key"/> is known in the given <paramref name="namespace"/>.
   /// </summary>
   /// <param name="key">Translation set key</param>
