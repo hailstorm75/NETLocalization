@@ -5,12 +5,7 @@ namespace Localization.Shared;
 
 public static class CultureManager
 {
-    #region Fields
-
     private static ITranslator? _translator;
-    private static IServiceProvider? _serviceProvider;
-
-    #endregion
 
     #region Events
 
@@ -38,14 +33,22 @@ public static class CultureManager
     /// <exception cref="InvalidOperationException">Thrown if <paramref name="serviceProvider"/> does not provide the required <see cref="ITranslator"/> service</exception>
     public static void Initialize(IServiceProvider serviceProvider)
     {
-        _serviceProvider = serviceProvider;
-        if (_serviceProvider is null)
+        if (serviceProvider is null)
             throw new ArgumentNullException(nameof(serviceProvider), "Service provider cannot be null.");
 
-        var service = _serviceProvider.GetService(typeof(ITranslator));
+        var service = serviceProvider.GetService(typeof(ITranslator));
         if (service is not ITranslator translator)
             throw new InvalidOperationException($"The '{nameof(ITranslator)}' service is not registered in the service provider.");
 
+        _translator = translator;
+    }
+    
+    /// <summary>
+    /// Initializes the <see cref="CultureManager"/> with the provided translator instance
+    /// </summary>
+    /// <param name="translator">Translator instance to initialize with</param>
+    public static void Initialize(ITranslator translator)
+    {
         _translator = translator;
     }
 
