@@ -2,7 +2,7 @@
 
 namespace Localization.Generator.Translation;
 
-public sealed class TranslationsCollection : IEnumerable<Translations>, IEquatable<TranslationsCollection>
+internal sealed class TranslationsCollection : IEnumerable<Translations>, IEquatable<TranslationsCollection>
 {
     private readonly Dictionary<string, Translations> _sets;
 

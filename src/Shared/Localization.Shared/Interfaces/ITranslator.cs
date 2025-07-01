@@ -22,6 +22,9 @@ public interface ITranslator
     /// <summary>
     /// Language keys that are allowed to be provided for selection
     /// </summary>
+    /// <remarks>
+    /// Leaving this empty means that all loaded languages are allowed
+    /// </remarks>
     ISet<string> AllowedLanguages { get; init; }
 
     /// <summary>

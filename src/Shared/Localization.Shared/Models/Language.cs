@@ -1,10 +1,12 @@
-﻿using System.Globalization;
+﻿using System.Diagnostics;
+using System.Globalization;
 
 namespace Localization.Shared.Models;
 
 /// <summary>
 /// Model representing an available language
 /// </summary>
+[DebuggerDisplay("{Key,nq} = {DisplayName,nq}")]
 public sealed record Language
 {
     #region Properties

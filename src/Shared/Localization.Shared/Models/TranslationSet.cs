@@ -1,5 +1,16 @@
-﻿namespace Localization.Shared.Models;
+﻿using Localization.Shared.Attributes;
+using Localization.Shared.Interfaces;
+using System.Diagnostics;
 
+namespace Localization.Shared.Models;
+
+/// <summary>
+/// Set of translations for a specific <see cref="Namespace"/> and <see cref="Key"/>
+/// </summary>
+/// <remarks>
+/// Translation sets are provided by classes marked with <see cref="TranslationProviderAttribute"/> and are consumed by the <see cref="ITranslator"/> implementation
+/// </remarks>
+[DebuggerDisplay("{Namespace,nq}:{Key,nq}, {Translations.Count} Translations")]
 public sealed class TranslationSet
 {
     /// <summary>

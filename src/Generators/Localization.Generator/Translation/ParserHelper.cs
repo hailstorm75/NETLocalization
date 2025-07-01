@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace Localization.Generator.Translation;
 
-public static class ParserHelper
+internal static class ParserHelper
 {
     private const string SCHEMA = """
                                   <?xml version="1.0" encoding="UTF-8" ?>

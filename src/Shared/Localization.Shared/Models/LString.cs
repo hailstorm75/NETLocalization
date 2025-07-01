@@ -7,10 +7,19 @@ using Localization.Shared.JSON;
 
 namespace Localization.Shared.Models;
 
+/// <summary>
+/// Localized string
+/// </summary>
+/// <remarks>
+/// The provided string is localized based on the current culture, which is managed by the <see cref="CultureManager"/>.
+/// <para/>
+/// Constant <see cref="LString"/> instances are not affected by culture changes and will always return the same value (see <see cref="CreateConstant"/>)
+/// </remarks>
 [JsonConverter(typeof(LStringJsonConverter))]
 [DebuggerDisplay("{String} - {Namespace,nq}:{Key,nq}")]
 public sealed class LString : INotifyPropertyChanged, IEquatable<LString>, IComparable<LString>, IDisposable
 {
+    /// <inheritdoc />
     public event PropertyChangedEventHandler? PropertyChanged;
 
     #region Fields
@@ -80,7 +89,7 @@ public sealed class LString : INotifyPropertyChanged, IEquatable<LString>, IComp
     /// Constant value constructor
     /// </summary>
     /// <param name="constString">Constant string value</param>
-    public LString(string constString)
+    private LString(string constString)
     {
         String = constString;
         Namespace = string.Empty;
