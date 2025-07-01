@@ -12,18 +12,11 @@ public sealed class TranslationProviderAttribute : Attribute
     public string Source { get; }
 
     /// <summary>
-    /// Determines whether reflection is allowed to be used for translation generation
-    /// </summary>
-    public bool AllowReflection { get; }
-
-    /// <summary>
     /// Default constructor
     /// </summary>
     /// <param name="source">Translation file source</param>
-    /// <param name="allowReflection">Disable for AOT support</param>
-    public TranslationProviderAttribute(string source, bool allowReflection = false)
+    public TranslationProviderAttribute(string source)
     {
         Source = source;
-        AllowReflection = allowReflection;
     }
 }
