@@ -192,6 +192,9 @@ public class Translator : ITranslator, IDisposable
     }
 
     /// <inheritdoc />
+    public IEnumerable<LString> GetAllTranslations() => _translations.SelectMany(kvp => kvp.Value, (kvp, translation) => translation.Value.Source);
+
+    /// <inheritdoc />
     public virtual void ChangeCulture(Language language)
     {
         using var scope = _logger.BeginScope(nameof(CurrentCulture));

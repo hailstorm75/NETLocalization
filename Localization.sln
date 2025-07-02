@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exp.WPF", "exp\Exp.WPF\Exp.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exp.MAUI", "exp\Exp.MAUI\Exp.MAUI.csproj", "{54A13F2F-B933-4830-9C6D-2F3BFE7E0245}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Localization.StringLocalizer", "Localization.StringLocalizer\Localization.StringLocalizer.csproj", "{3EA79D7F-F8CC-41DC-BA9D-94D5093FA3E8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,10 @@ Global
 		{54A13F2F-B933-4830-9C6D-2F3BFE7E0245}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54A13F2F-B933-4830-9C6D-2F3BFE7E0245}.Release|Any CPU.Build.0 = Release|Any CPU
 		{54A13F2F-B933-4830-9C6D-2F3BFE7E0245}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{3EA79D7F-F8CC-41DC-BA9D-94D5093FA3E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EA79D7F-F8CC-41DC-BA9D-94D5093FA3E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EA79D7F-F8CC-41DC-BA9D-94D5093FA3E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EA79D7F-F8CC-41DC-BA9D-94D5093FA3E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -96,6 +102,7 @@ Global
 		{A811C0CE-04CE-4839-A0C1-524470055BA0} = {6AB5D356-B46E-42DF-83A0-E848D4C5CE61}
 		{198B6BE8-4423-418C-AE7F-EBC1F24A07F3} = {6AB5D356-B46E-42DF-83A0-E848D4C5CE61}
 		{54A13F2F-B933-4830-9C6D-2F3BFE7E0245} = {6AB5D356-B46E-42DF-83A0-E848D4C5CE61}
+		{3EA79D7F-F8CC-41DC-BA9D-94D5093FA3E8} = {E1056371-6759-48BF-892B-71C2B711551B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3BBAA1A3-C973-4BF3-83CC-5940920B003E}

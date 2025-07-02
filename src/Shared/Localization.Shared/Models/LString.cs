@@ -45,6 +45,11 @@ public sealed class LString : INotifyPropertyChanged, IEquatable<LString>, IComp
     public required string Key { get; init; } = string.Empty;
 
     /// <summary>
+    /// Localization unique identifier
+    /// </summary>
+    public string Identifier => $"{Namespace}:{Key}";
+
+    /// <summary>
     /// Determines whether the string is empty
     /// </summary>
     public bool IsEmpty => !((_isConstant && !string.IsNullOrEmpty(_string)) || (!string.IsNullOrEmpty(Namespace) && !string.IsNullOrEmpty(Key)));
@@ -110,6 +115,20 @@ public sealed class LString : INotifyPropertyChanged, IEquatable<LString>, IComp
     #endregion
 
     #region Methods
+
+    /// <summary>
+    /// Splits a localized string identifier into its namespace and key components
+    /// </summary>
+    /// <param name="identifier">Identifier in the format "Namespace:Key"</param>
+    /// <returns>Tuple containing the namespace and key</returns>
+    public static (string @namespace, string key) SplitIdentifier(string identifier)
+    {
+        var parts = identifier.Split(':');
+        if (parts.Length != 2)
+            throw new ArgumentException("Invalid identifier format. Identifier must be in the format 'Namespace:Key'.");
+
+        return (parts[0], parts[1]);
+    }
     
     private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

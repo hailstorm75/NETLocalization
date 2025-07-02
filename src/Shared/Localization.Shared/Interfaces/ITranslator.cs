@@ -127,6 +127,12 @@ public interface ITranslator
     string TranslateArgs(string key, string @namespace, string culture, params object[] args);
 
     /// <summary>
+    /// Retrieves all translations available in the translator
+    /// </summary>
+    /// <returns>Enumeration of translations</returns>
+    IEnumerable<LString> GetAllTranslations();
+
+    /// <summary>
     /// Changes the current culture to the specified <paramref name="language"/>
     /// </summary>
     /// <param name="language">Target culture</param>
