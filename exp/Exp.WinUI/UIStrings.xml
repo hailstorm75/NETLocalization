@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations namespace="Test">
+  <set key="Greeting" description="Greeting message">
+    <item lang="en">Hello</item>
+    <item lang="de-de">Hallo</item>
+  </set>
+  <set key="Farewell" description="Farewell message">
+    <item lang="en">Bye</item>
+    <item lang="de-de">Auf Wiedersehen</item>
+  </set>
+</translations>
