@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+  x:Class="Example.MAUI.MainPage"
+  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:maui="clr-namespace:Localization.MAUI;assembly=Localization.MAUI"
+  xmlns:viewModels="using:Example.MAUI">
+
+  <ContentPage.BindingContext>
+    <viewModels:MainPageViewModel />
+  </ContentPage.BindingContext>
+
+  <Grid Margin="5">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+
+    <Picker
+      Grid.Row="0"
+      ItemDisplayBinding="{Binding DisplayName}"
+      ItemsSource="{Binding Languages}"
+      SelectedItem="{Binding Language}" />
+
+    <Label Grid.Row="1" Text="{maui:Tr String={x:Static viewModels:Provider.Greeting}}" />
+    <Label Grid.Row="2" Text="{maui:Tr String={x:Static viewModels:Provider.Farewell}}" />
+  </Grid>
+
+</ContentPage>

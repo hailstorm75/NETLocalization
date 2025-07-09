@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{BB258DC6-46F9-41E4-8D80-FA439AE39AA8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "exp", "exp", "{6AB5D356-B46E-42DF-83A0-E848D4C5CE61}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{6AB5D356-B46E-42DF-83A0-E848D4C5CE61}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bench", "bench", "{F994F82F-4D4B-4581-A47D-742AAF2BAD7C}"
 EndProject
@@ -29,13 +29,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Localization.Generator", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Localization.Shared", "src\Shared\Localization.Shared\Localization.Shared.csproj", "{EB8A127A-F867-47D1-9B52-2EB2D646808B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exp.Console", "exp\Exp.Console\Exp.Console.csproj", "{A811C0CE-04CE-4839-A0C1-524470055BA0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.Console", "examples\Example.Console\Example.Console.csproj", "{A811C0CE-04CE-4839-A0C1-524470055BA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exp.WPF", "exp\Exp.WPF\Exp.WPF.csproj", "{198B6BE8-4423-418C-AE7F-EBC1F24A07F3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.WPF", "examples\Example.WPF\Example.WPF.csproj", "{198B6BE8-4423-418C-AE7F-EBC1F24A07F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exp.MAUI", "exp\Exp.MAUI\Exp.MAUI.csproj", "{54A13F2F-B933-4830-9C6D-2F3BFE7E0245}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.MAUI", "examples\Example.MAUI\Example.MAUI.csproj", "{54A13F2F-B933-4830-9C6D-2F3BFE7E0245}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exp.Avalonia", "exp\Exp.Avalonia\Exp.Avalonia.csproj", "{164B528F-D706-49B9-B368-D3777E2AACD8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.Avalonia", "examples\Example.Avalonia\Example.Avalonia.csproj", "{164B528F-D706-49B9-B368-D3777E2AACD8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Localization.StringLocalizer", "src\Framework\Localization.StringLocalizer\Localization.StringLocalizer.csproj", "{B6316438-FBF8-BD35-C2FD-E916A0BC92EB}"
 EndProject
