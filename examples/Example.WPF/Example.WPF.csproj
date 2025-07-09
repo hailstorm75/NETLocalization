@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Framework\Localization.WPF\Localization.WPF.csproj" />
     <ProjectReference Include="..\..\src\Generators\Localization.Generator\Localization.Generator.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer"/>
+    <ProjectReference Include="..\Example.SharedLocalizations\Example.SharedLocalizations.csproj" />
   </ItemGroup>
 
   <ItemGroup>

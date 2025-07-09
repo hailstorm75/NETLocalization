@@ -1,4 +1,4 @@
-﻿<Solution>
+<Solution>
   <Configurations>
     <Platform Name="Any CPU" />
     <Platform Name="x64" />
@@ -6,19 +6,20 @@
   </Configurations>
   <Folder Name="/bench/" />
   <Folder Name="/examples/">
-    <Project Path="examples\Example.Avalonia\Example.Avalonia.csproj" Type="Classic C#">
+    <Project Path="examples/Example.SharedLocalizations/Example.SharedLocalizations.csproj" Id="6375f7f5-d2be-460b-a3fb-d7005b150f38" />
+    <Project Path="examples\Example.Avalonia\Example.Avalonia.csproj">
       <Configuration Solution="Debug|x64" Project="Debug|Any CPU" />
       <Configuration Solution="Debug|x86" Project="Debug|Any CPU" />
       <Configuration Solution="Release|x64" Project="Release|Any CPU" />
       <Configuration Solution="Release|x86" Project="Release|Any CPU" />
     </Project>
-    <Project Path="examples\Example.Console\Example.Console.csproj" Type="Classic C#">
+    <Project Path="examples\Example.Console\Example.Console.csproj">
       <Configuration Solution="Debug|x64" Project="Debug|Any CPU" />
       <Configuration Solution="Debug|x86" Project="Debug|Any CPU" />
       <Configuration Solution="Release|x64" Project="Release|Any CPU" />
       <Configuration Solution="Release|x86" Project="Release|Any CPU" />
     </Project>
-    <Project Path="examples\Example.MAUI\Example.MAUI.csproj" Type="Classic C#">
+    <Project Path="examples\Example.MAUI\Example.MAUI.csproj">
       <Configuration Solution="Debug|Any CPU" Project="Debug|Any CPU|Deploy" />
       <Configuration Solution="Debug|x64" Project="Debug|Any CPU" />
       <Configuration Solution="Debug|x86" Project="Debug|Any CPU" />
@@ -26,7 +27,7 @@
       <Configuration Solution="Release|x64" Project="Release|Any CPU" />
       <Configuration Solution="Release|x86" Project="Release|Any CPU" />
     </Project>
-    <Project Path="examples\Example.WPF\Example.WPF.csproj" Type="Classic C#">
+    <Project Path="examples\Example.WPF\Example.WPF.csproj">
       <Configuration Solution="Debug|x64" Project="Debug|Any CPU" />
       <Configuration Solution="Debug|x86" Project="Debug|Any CPU" />
       <Configuration Solution="Release|x64" Project="Release|Any CPU" />
@@ -35,31 +36,31 @@
   </Folder>
   <Folder Name="/src/" />
   <Folder Name="/src/Frameworks/">
-    <Project Path="src\Framework\Localization.Avalonia\Localization.Avalonia.csproj" Type="Classic C#">
+    <Project Path="src\Framework\Localization.Avalonia\Localization.Avalonia.csproj">
       <Configuration Solution="Debug|x64" Project="Debug|Any CPU" />
       <Configuration Solution="Debug|x86" Project="Debug|Any CPU" />
       <Configuration Solution="Release|x64" Project="Release|Any CPU" />
       <Configuration Solution="Release|x86" Project="Release|Any CPU" />
     </Project>
-    <Project Path="src\Framework\Localization.MAUI\Localization.MAUI.csproj" Type="Classic C#">
+    <Project Path="src\Framework\Localization.MAUI\Localization.MAUI.csproj">
       <Configuration Solution="Debug|x64" Project="Debug|Any CPU" />
       <Configuration Solution="Debug|x86" Project="Debug|Any CPU" />
       <Configuration Solution="Release|x64" Project="Release|Any CPU" />
       <Configuration Solution="Release|x86" Project="Release|Any CPU" />
     </Project>
-    <Project Path="src\Framework\Localization.Razor\Localization.Razor.csproj" Type="Classic C#">
+    <Project Path="src\Framework\Localization.Razor\Localization.Razor.csproj">
       <Configuration Solution="Debug|x64" Project="Debug|Any CPU" />
       <Configuration Solution="Debug|x86" Project="Debug|Any CPU" />
       <Configuration Solution="Release|x64" Project="Release|Any CPU" />
       <Configuration Solution="Release|x86" Project="Release|Any CPU" />
     </Project>
-    <Project Path="src\Framework\Localization.StringLocalizer\Localization.StringLocalizer.csproj" Type="Classic C#">
+    <Project Path="src\Framework\Localization.StringLocalizer\Localization.StringLocalizer.csproj">
       <Configuration Solution="Debug|x64" Project="Debug|Any CPU" />
       <Configuration Solution="Debug|x86" Project="Debug|Any CPU" />
       <Configuration Solution="Release|x64" Project="Release|Any CPU" />
       <Configuration Solution="Release|x86" Project="Release|Any CPU" />
     </Project>
-    <Project Path="src\Framework\Localization.WPF\Localization.WPF.csproj" Type="Classic C#">
+    <Project Path="src\Framework\Localization.WPF\Localization.WPF.csproj">
       <Configuration Solution="Debug|x64" Project="Debug|Any CPU" />
       <Configuration Solution="Debug|x86" Project="Debug|Any CPU" />
       <Configuration Solution="Release|x64" Project="Release|Any CPU" />
@@ -67,7 +68,7 @@
     </Project>
   </Folder>
   <Folder Name="/src/Generators/">
-    <Project Path="src\Generators\Localization.Generator\Localization.Generator.csproj" Type="Classic C#">
+    <Project Path="src\Generators\Localization.Generator\Localization.Generator.csproj">
       <Configuration Solution="Debug|x64" Project="Debug|Any CPU" />
       <Configuration Solution="Debug|x86" Project="Debug|Any CPU" />
       <Configuration Solution="Release|x64" Project="Release|Any CPU" />
@@ -75,7 +76,7 @@
     </Project>
   </Folder>
   <Folder Name="/src/Shared/">
-    <Project Path="src\Shared\Localization.Shared\Localization.Shared.csproj" Type="Classic C#">
+    <Project Path="src\Shared\Localization.Shared\Localization.Shared.csproj">
       <Configuration Solution="Debug|x64" Project="Debug|Any CPU" />
       <Configuration Solution="Debug|x86" Project="Debug|Any CPU" />
       <Configuration Solution="Release|x64" Project="Release|Any CPU" />
@@ -83,7 +84,7 @@
     </Project>
   </Folder>
   <Folder Name="/test/">
-    <Project Path="test\UT.Shared\UT.Shared.csproj" Type="Classic C#">
+    <Project Path="test\UT.Shared\UT.Shared.csproj">
       <Configuration Solution="Debug|x64" Project="Debug|Any CPU" />
       <Configuration Solution="Debug|x86" Project="Debug|Any CPU" />
       <Configuration Solution="Release|x64" Project="Release|Any CPU" />

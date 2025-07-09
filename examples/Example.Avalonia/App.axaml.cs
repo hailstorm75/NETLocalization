@@ -5,6 +5,13 @@ using System.Linq;
 using Avalonia.Markup.Xaml;
 using Example.Avalonia.ViewModels;
 using Example.Avalonia.Views;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using Localization.Shared.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using Localization.Shared;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+using Example.SharedLocalizations;
 
 namespace Example.Avalonia;
 
@@ -16,6 +23,18 @@ public partial class App : Application
     /// <inheritdoc />
     public override void OnFrameworkInitializationCompleted()
     {
+        var serviceCollection = new ServiceCollection();
+        serviceCollection
+            .AddSingleton<ITranslator, Translator>()
+            .AddSingleton(typeof(ILogger<>), typeof(NullLogger<>));
+        Ioc.Default.ConfigureServices(serviceCollection.BuildServiceProvider());
+
+        CultureManager.Initialize(Ioc.Default);
+
+        var translator = Ioc.Default.GetRequiredService<ITranslator>();
+        translator.RegisterTranslations(Provider.GetTranslations());
+        translator.RegisterTranslations(SharedLocalizationsProvider.GetTranslations());
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 

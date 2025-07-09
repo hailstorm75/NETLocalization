@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<translations namespace="Shared">
+  <set key="Cat" description="Neutral name of the animal - cat">
+    <item lang="en">Cat</item>
+    <item lang="de-de">Katze</item>
+  </set>
+</translations>
