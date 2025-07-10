@@ -3,11 +3,11 @@
   "profiles": {
     "DebugGeneratorWithConsole": {
       "commandName": "DebugRoslynComponent",
-      "targetProject": "..\\..\\..\\exp\\Example.Console\\Example.Console.csproj"
+      "targetProject": "..\\..\\..\\examples\\Example.Console\\Example.Console.csproj"
     },
     "DebugGeneratorWithWPF": {
       "commandName": "DebugRoslynComponent",
-      "targetProject": "..\\..\\..\\exp\\Example.WPF\\Example.WPF.csproj"
+      "targetProject": "..\\..\\..\\examples\\Example.WPF\\Example.WPF.csproj"
     }
   }
 }
