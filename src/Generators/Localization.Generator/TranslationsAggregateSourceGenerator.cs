@@ -2,6 +2,7 @@
 using Microsoft.CodeAnalysis;
 using System.Collections.Immutable;
 using System.CodeDom.Compiler;
+using System.Collections.Concurrent;
 
 namespace Localization.Generator;
 
@@ -20,7 +21,7 @@ public sealed class TranslationsAggregateSourceGenerator : IIncrementalGenerator
 
     private sealed class GetAllSymbolsVisitor(Func<INamedTypeSymbol, bool> predicate) : SymbolVisitor
     {
-        private readonly LinkedList<INamedTypeSymbol> _symbols = new();
+        private readonly ConcurrentBag<INamedTypeSymbol> _symbols = [];
 
         public IReadOnlyCollection<INamedTypeSymbol> Symbols => _symbols;
 
@@ -32,7 +33,7 @@ public sealed class TranslationsAggregateSourceGenerator : IIncrementalGenerator
         public override void VisitNamedType(INamedTypeSymbol symbol)
         {
             if (predicate(symbol))
-                _symbols.AddLast(symbol);
+                _symbols.Add(symbol);
         }
     }
 
