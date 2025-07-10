@@ -43,7 +43,7 @@ internal sealed class TrArgumentConverter
             }
         }
 
-        var translated = string.Format(Data.String, localizationArguments.ToArray());
+        var translated = Data.Format(localizationArguments.ToArray());
 
         if (Converter is not null)
             return Converter!.Convert(translated, targetType, ConverterParameter, ConverterCulture)?.ToString() ?? string.Empty;

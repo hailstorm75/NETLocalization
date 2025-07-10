@@ -1,8 +1,9 @@
-﻿using System.Globalization;
-using System.Windows;
-using System.Windows.Data;
+﻿using Localization.Shared.Models;
+using Localization.Shared;
+using System.Globalization;
 using System.Windows.Markup;
-using Localization.Shared.Models;
+using System.Windows.Data;
+using System.Windows;
 
 namespace Localization.WPF;
 
@@ -175,6 +176,9 @@ public sealed class TrExtension
             return null;
         if (string.IsNullOrWhiteSpace(key))
             return null;
+
+        if (CultureManager.GetTranslator()?.TryGetString(key, @namespace, out var localizedString) == true)
+            return localizedString;
 
         return new LString
         {

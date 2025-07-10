@@ -46,10 +46,9 @@ internal sealed class TrArgumentConverter : IMultiValueConverter
                     localizationArguments.Add(values[offset] ?? string.Empty);
                 offset++;
             }
-
         }
 
-        var translated = string.Format(Data.String, localizationArguments.ToArray());
+        var translated = Data.Format(localizationArguments.ToArray());
 
         if (Converter is not null)
             return Converter.Convert(translated, targetType, ConverterParameter, ConverterCulture ?? culture)?.ToString() ?? string.Empty;

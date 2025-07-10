@@ -1,9 +1,10 @@
-﻿using System;
-using System.Globalization;
-using Avalonia.Data;
-using Avalonia.Markup.Xaml;
+﻿using System.Globalization;
+using System;
 using Avalonia.Data.Converters;
+using Avalonia.Markup.Xaml;
+using Avalonia.Data;
 using Localization.Shared.Models;
+using Localization.Shared;
 
 namespace Localization.Avalonia;
 
@@ -84,6 +85,9 @@ public sealed class TrExtension : MarkupExtension
 
         if (string.IsNullOrWhiteSpace(@namespace) || string.IsNullOrWhiteSpace(key))
             return null;
+
+        if (CultureManager.GetTranslator()?.TryGetString(key, @namespace, out var localizedString) == true)
+            return localizedString;
 
         return new LString
         {
