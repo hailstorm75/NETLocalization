@@ -128,7 +128,6 @@ public sealed class TranslationsAggregateSourceGenerator : IIncrementalGenerator
                 indentWriter.WriteLine("/// <summary>Populates the <paramref name=\"translator\"/> with all available translations</summary>");
                 indentWriter.WriteLine("/// <param name=\"translator\">Translator instance to populate</param>");
                 indentWriter.WriteLine("/// <seealso cref=\"GetTranslations\"/>");
-                indentWriter.WriteLine("[global::System.Diagnostics.Contracts.Pure]");
                 indentWriter.WriteLine("[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]");
                 indentWriter.WriteLine($"[global::System.CodeDom.Compiler.GeneratedCode(\"{TOOL_NAME}\", \"{VERSION}\")]");
                 indentWriter.WriteLine("public static void LoadTranslations(this global::Localization.Shared.Interfaces.ITranslator translator)");
