@@ -108,7 +108,7 @@ public sealed class TranslationsAggregateSourceGenerator : IIncrementalGenerator
                 {
                     if (providers.Count == 0)
                         indentWriter.WriteLine("yield break;");
-                    if (providers.Count == 1)
+                    else if (providers.Count == 1)
                         indentWriter.WriteLine($"return {providers.First()}.GetTranslations();");
                     else
                         foreach (var provider in providers.Select(static provider => provider.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)))
