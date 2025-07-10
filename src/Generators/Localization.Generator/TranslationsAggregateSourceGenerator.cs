@@ -105,18 +105,20 @@ public sealed class TranslationsAggregateSourceGenerator : IIncrementalGenerator
                 indentWriter.WriteLine("{");
                 indentWriter.Indent++;
 
-                if (providers.Count == 0)
-                    indentWriter.WriteLine("yield break;");
-                if (providers.Count == 1)
-                    indentWriter.WriteLine($"=> {providers.First()}.GetTranslations();");
-                else
-                    foreach (var provider in providers.Select(static provider => provider.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)))
-                    {
-                        indentWriter.WriteLine($"foreach (var translation in {provider}.GetTranslations())");
-                        indentWriter.Indent++;
-                        indentWriter.WriteLine("yield return translation;");
-                        indentWriter.Indent--;
-                    }
+                {
+                    if (providers.Count == 0)
+                        indentWriter.WriteLine("yield break;");
+                    if (providers.Count == 1)
+                        indentWriter.WriteLine($"return {providers.First()}.GetTranslations();");
+                    else
+                        foreach (var provider in providers.Select(static provider => provider.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)))
+                        {
+                            indentWriter.WriteLine($"foreach (var translation in {provider}.GetTranslations())");
+                            indentWriter.Indent++;
+                            indentWriter.WriteLine("yield return translation;");
+                            indentWriter.Indent--;
+                        }
+                }
 
                 indentWriter.Indent--;
                 indentWriter.WriteLine("}");
