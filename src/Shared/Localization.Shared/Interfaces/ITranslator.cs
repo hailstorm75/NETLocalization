@@ -129,8 +129,9 @@ public interface ITranslator
     /// <summary>
     /// Retrieves all translations available in the translator
     /// </summary>
+    /// <param name="namespace">Translation set namespace, leave empty for all namespaces</param>
     /// <returns>Enumeration of translations</returns>
-    IEnumerable<LString> GetAllTranslations();
+    IEnumerable<LString> GetAllTranslations(string @namespace = "");
 
     /// <summary>
     /// Changes the current culture to the specified <paramref name="language"/>
@@ -139,7 +140,7 @@ public interface ITranslator
     void ChangeCulture(Language language);
 
     /// <summary>
-    /// Retrieves a caches or provides a new <see cref="LEnum"/> for the given <paramref name="enumField"/>
+    /// Retrieves a cached or provides a new <see cref="LEnum"/> for the given <paramref name="enumField"/>
     /// </summary>
     /// <param name="enumField">Enum field</param>
     /// <returns>Localized enum field</returns>

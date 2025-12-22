@@ -7,6 +7,14 @@ using System.Reflection;
 
 namespace Localization.Shared.Models;
 
+/// <summary>
+/// Represents a localized wrapper around an enum field.
+/// Provides a localized string for the enum value and notifies listeners when the string changes.
+/// </summary>
+/// <remarks>
+/// Instances subscribe to culture change notifications and automatically update their localized string.
+/// Use LEnum.INVALID to represent an invalid or placeholder enum value.
+/// </remarks>
 [DebuggerDisplay("{String} - {_enumType.FullName,nq}")]
 public sealed class LEnum : INotifyPropertyChanged
 {

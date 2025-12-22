@@ -43,7 +43,6 @@ public sealed class TranslationsAggregateSourceGenerator : IIncrementalGenerator
         var providersSource = context.CompilationProvider.Select(static (compilation, _) =>
         {
             var visitor = new GetAllSymbolsVisitor(static symbol =>
-                symbol.IsStatic &&
                 symbol.GetAttributes().Any(static attr => attr.AttributeClass?.ToDisplayString() == PROVIDER_ATTRIBUTE_NAME));
             visitor.Visit(compilation.GlobalNamespace);
 

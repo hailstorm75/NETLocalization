@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
-using Example.SharedLocalizations;
 using Localization.Shared;
 using Localization.Shared.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +23,6 @@ public sealed partial class App
         CultureManager.Initialize(Ioc.Default);
 
         var translator = Ioc.Default.GetRequiredService<ITranslator>();
-        translator.RegisterTranslations(Provider.GetTranslations());
-        translator.RegisterTranslations(SharedLocalizationsProvider.GetTranslations());
+        translator.LoadTranslations();
     }
 }

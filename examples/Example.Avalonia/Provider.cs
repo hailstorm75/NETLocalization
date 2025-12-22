@@ -3,4 +3,4 @@
 namespace Example.Avalonia;
 
 [TranslationProvider("UIStrings")]
-public static partial class Provider;
+public sealed partial class Provider;

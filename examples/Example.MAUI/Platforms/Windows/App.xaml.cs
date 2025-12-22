@@ -7,7 +7,7 @@ namespace Example.MAUI;
 /// <summary>
 /// Provides application-specific behavior to supplement the default Application class.
 /// </summary>
-public partial class App : MauiWinUIApplication
+public partial class App
 {
     /// <summary>
     /// Initializes the singleton application object.  This is the first line of authored code
@@ -15,7 +15,7 @@ public partial class App : MauiWinUIApplication
     /// </summary>
     public App()
     {
-        this.InitializeComponent();
+        InitializeComponent();
     }
 
     protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();

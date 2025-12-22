@@ -4,7 +4,7 @@ using Localization.Shared.Models;
 
 namespace Localization.StringLocalizer;
 
-public sealed class LStringLocalizer(ITranslator translator) : IStringLocalizer
+public sealed class LStringLocalizer<T>(ITranslator translator) : IStringLocalizer<T> where T : ITranslationProvider
 {
     /// <inheritdoc />
     public IEnumerable<LocalizedString> GetAllStrings(bool includeParentCultures) => translator.GetAllTranslations().Select(Convert);
@@ -14,8 +14,7 @@ public sealed class LStringLocalizer(ITranslator translator) : IStringLocalizer
     {
         get
         {
-            var split = LString.SplitIdentifier(name);
-            var localized = translator.Translate(split.key, split.@namespace);
+            var localized = translator.Translate(name, T.GetNamespace());
 
             return new LocalizedString(name, localized);
         }
@@ -26,8 +25,7 @@ public sealed class LStringLocalizer(ITranslator translator) : IStringLocalizer
     {
         get
         {
-            var split = LString.SplitIdentifier(name);
-            var localized = translator.TranslateArgs(split.key, split.@namespace, arguments);
+            var localized = translator.TranslateArgs(name, T.GetNamespace(), arguments);
 
             return new LocalizedString(name, localized);
         }

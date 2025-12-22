@@ -3,7 +3,4 @@
 namespace Example.SharedLocalizations;
 
 [TranslationProvider("SharedLocalizations")]
-public static partial class SharedLocalizationsProvider
-{
-}
-
+public sealed partial class SharedLocalizationsProvider;

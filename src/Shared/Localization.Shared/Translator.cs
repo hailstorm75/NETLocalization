@@ -192,7 +192,10 @@ public class Translator : ITranslator, IDisposable
     }
 
     /// <inheritdoc />
-    public IEnumerable<LString> GetAllTranslations() => _translations.SelectMany(kvp => kvp.Value, (kvp, translation) => translation.Value.Source);
+    public IEnumerable<LString> GetAllTranslations(string @namespace = "")
+        => _translations
+            .Where(kvp => string.IsNullOrEmpty(@namespace) || kvp.Key.Equals(@namespace, StringComparison.OrdinalIgnoreCase))
+            .SelectMany(kvp => kvp.Value, (_, translation) => translation.Value.Source);
 
     /// <inheritdoc />
     public virtual void ChangeCulture(Language language)

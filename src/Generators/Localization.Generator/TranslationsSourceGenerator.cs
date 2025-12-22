@@ -133,15 +133,18 @@ public sealed class TranslationsSourceGenerator : IIncrementalGenerator
 
         indentWriter.Indent++;
 
-        indentWriter.WriteLine($"static partial class {data.Symbol.Name}");
-        indentWriter.WriteLine("{");
-        indentWriter.Indent++;
-
         var languages = translations
             .SelectMany(static translations => translations.Items.Values)
             .Select(static translation => translation.Language)
             .Distinct(StringComparer.OrdinalIgnoreCase)
             .ToDictionary(static key => key, static key => NormalizeString(key, true), StringComparer.OrdinalIgnoreCase);
+
+        indentWriter.WriteLine($"/// <summary>Provides {languages.Count} localized string(s) from the '{translations.Namespace}' namespace</summary>");
+        indentWriter.WriteLine("[global::System.Diagnostics.CodeAnalysis.SuppressMessage(\"ReSharper\", \"ClassNeverInstantiated.Global\")]");
+        indentWriter.WriteLine($"[global::System.CodeDom.Compiler.GeneratedCode(\"{TOOL_NAME}\", \"{VERSION}\")]");
+        indentWriter.WriteLine($"partial class {data.Symbol.Name} : global::Localization.Shared.Interfaces.ITranslationProvider");
+        indentWriter.WriteLine("{");
+        indentWriter.Indent++;
 
         PrintLanguages(translations, indentWriter, languages);
 
@@ -166,7 +169,7 @@ public sealed class TranslationsSourceGenerator : IIncrementalGenerator
     {
         indentWriter.WriteLine("#region Constants");
         indentWriter.WriteLineNoTabs(string.Empty);
-
+        
         indentWriter.WriteLine($"private const string {TRANSLATIONS_NAMESPACE} = \"{translations.Namespace}\";");
 
         foreach (var language in languages)
@@ -178,6 +181,11 @@ public sealed class TranslationsSourceGenerator : IIncrementalGenerator
 
     private static void PrintTranslationsProvider(TranslationsCollection translations, Dictionary<string, string> languages, IndentedTextWriter indentWriter)
     {
+        indentWriter.WriteLine("/// <inheritdoc/>");
+        indentWriter.WriteLine("[global::System.Diagnostics.Contracts.Pure]");
+        indentWriter.WriteLine("[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]");
+        indentWriter.WriteLine($"public static string GetNamespace() => {TRANSLATIONS_NAMESPACE};");
+
         indentWriter.WriteLine("/// <summary>Enumerates translated strings</summary>");
         indentWriter.WriteLine("[global::System.Diagnostics.Contracts.Pure]");
         indentWriter.WriteLine("[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]");
