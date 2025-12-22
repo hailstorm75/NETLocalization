@@ -43,8 +43,10 @@ public class TranslatorTests
         // Act
         var result = translator.GetEnum(value);
         // Assert
-        result.ShouldNotBeNull();
-        result.EnumField.ShouldBe(value);
+        Assert.Multiple(
+            () =>  result.ShouldNotBeNull(),
+            () => result.EnumField.ShouldBe(value)
+        );
     }
 
     [Fact]
@@ -88,10 +90,12 @@ public class TranslatorTests
         var missingKey = translator.Translate("missing", ns, "en");
         var missingCulture = translator.Translate(key, ns, "fr");
         // Assert
-        result.ShouldBe("Hello");
-        missingNs.ShouldContain("INVALID LOCALIZATION NAMESPACE");
-        missingKey.ShouldContain("INVALID LOCALIZATION KEY");
-        missingCulture.ShouldContain("#");
+        Assert.Multiple(
+            () => result.ShouldBe("Hello"),
+            () => missingNs.ShouldContain("INVALID LOCALIZATION NAMESPACE"),
+            () => missingKey.ShouldContain("INVALID LOCALIZATION KEY"),
+            () => missingCulture.ShouldContain("#")
+        );
     }
 
     [Fact]
@@ -111,10 +115,12 @@ public class TranslatorTests
         // Act
         var found = translator.TryGetString(key, ns, out var lstr);
         // Assert
-        found.ShouldBeTrue();
-        lstr.ShouldNotBeNull();
-        lstr!.Namespace.ShouldBe(ns);
-        lstr.Key.ShouldBe(key);
+        Assert.Multiple(
+            () => found.ShouldBeTrue(),
+            () => lstr.ShouldNotBeNull(),
+            () => lstr!.Namespace.ShouldBe(ns),
+            () => lstr!.Key.ShouldBe(key)
+        );
     }
 
     [Fact]
@@ -126,8 +132,10 @@ public class TranslatorTests
         // Act
         var found = translator.TryGetString("missing", "missing", out var lstr);
         // Assert
-        found.ShouldBeFalse();
-        lstr.ShouldBeNull();
+        Assert.Multiple(
+            () => found.ShouldBeFalse(),
+            () => lstr.ShouldBeNull()
+        );
     }
 
     [Fact]
