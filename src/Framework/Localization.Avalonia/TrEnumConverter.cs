@@ -15,7 +15,7 @@ public sealed class TrEnumConverter : MarkupExtension, IValueConverter
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         => value is null
             ? LEnum.INVALID
-            : Shared.CultureManager.GetTranslator()?.GetEnum(value) ?? LEnum.INVALID;
+            : Shared.LocalizationRuntime.GetTranslator()?.GetEnum(value) ?? LEnum.INVALID;
 
     /// <inheritdoc />
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

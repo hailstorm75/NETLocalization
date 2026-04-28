@@ -1,4 +1,4 @@
-﻿using Localization.Shared.Interfaces;
+using Localization.Shared.Interfaces;
 using Localization.Shared.Models;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
@@ -15,6 +15,7 @@ public class Translator : ITranslator, IDisposable
     #region Fields
 
     private readonly ILogger<Translator> _logger;
+    private readonly ICultureManager _cultureManager;
     private readonly ConcurrentDictionary<string, ConcurrentDictionary<string, TranslationSet>> _translations = new(StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<string, Language> _loadedLanguages = new(2, StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<object, LEnum> _enums = new();
@@ -38,13 +39,16 @@ public class Translator : ITranslator, IDisposable
     #endregion
 
     /// <summary>
-    /// Default constructor
+    /// Default constructor.
     /// </summary>
-    public Translator(ILogger<Translator> logger)
+    public Translator(ILogger<Translator> logger, ICultureManager cultureManager)
     {
         _logger = logger;
-    
-        CultureManager.LanguageChanged += LanguageChanged;
+        _cultureManager = cultureManager;
+
+        _cultureManager.SetTranslator(this);
+        _cultureManager.LanguageChanged += LanguageChanged;
+        LocalizationAmbient.Register(this);
     }
 
     #region Methods
@@ -70,7 +74,7 @@ public class Translator : ITranslator, IDisposable
     public void RegisterTranslations(TranslationSet translations)
     {
         using var scope = _logger.BeginScope(nameof(RegisterTranslations));
-    
+
         TranslatorLogger.LogRegisteringTranslation(translations.Namespace, translations.Key, _logger);
 
         if (!_translations.TryGetValue(translations.Namespace, out var localizations))
@@ -125,7 +129,7 @@ public class Translator : ITranslator, IDisposable
     public virtual string Translate(string key, string @namespace, string culture)
     {
         using var scope = _logger.BeginScope(nameof(Translate));
-    
+
         if (!_translations.TryGetValue(@namespace, out var localization))
         {
             TranslatorLogger.LogNamespaceNotFound(@namespace, _logger);
@@ -150,7 +154,7 @@ public class Translator : ITranslator, IDisposable
     public bool TryGetString(string key, string @namespace, [NotNullWhen(true)] out LString? result)
     {
         result = null;
-        
+
         using var scope = _logger.BeginScope(nameof(TryGetString));
         if (!_translations.TryGetValue(@namespace, out var localization))
         {
@@ -205,7 +209,7 @@ public class Translator : ITranslator, IDisposable
     {
         using var scope = _logger.BeginScope(nameof(CurrentCulture));
 
-        if (AllowedLanguages.Count > 0 && !AllowedLanguages.Contains(language))
+        if (AllowedLanguages.Count > 0 && !AllowedLanguages.Contains(language.Key))
         {
             TranslatorLogger.LogAttemptToChangeCultureToDisallowedCulture(language, _logger);
             return;
@@ -218,13 +222,13 @@ public class Translator : ITranslator, IDisposable
         TranslatorLogger.LogChangingCulture(CurrentCulture, newCulture, _logger);
         CurrentCulture = newCulture;
 
-        CultureManager.InternallyNotifyCultureChanged(language);
+        _cultureManager.NotifyCultureChanged(language);
     }
 
     /// <inheritdoc />
     public void Dispose()
     {
-        CultureManager.LanguageChanged -= LanguageChanged;
+        _cultureManager.LanguageChanged -= LanguageChanged;
         _translations.Clear();
         _loadedLanguages.Clear();
         _enums.Clear();

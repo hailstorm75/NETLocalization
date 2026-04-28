@@ -6,9 +6,9 @@ using Avalonia.Markup.Xaml;
 using Example.Avalonia.ViewModels;
 using Example.Avalonia.Views;
 using CommunityToolkit.Mvvm.DependencyInjection;
+using Localization.Shared.DependencyInjection;
 using Localization.Shared.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using Localization.Shared;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Example.SharedLocalizations;
@@ -25,11 +25,9 @@ public partial class App : Application
     {
         var serviceCollection = new ServiceCollection();
         serviceCollection
-            .AddSingleton<ITranslator, Translator>()
+            .AddLocalization(_ => { })
             .AddSingleton(typeof(ILogger<>), typeof(NullLogger<>));
         Ioc.Default.ConfigureServices(serviceCollection.BuildServiceProvider());
-
-        CultureManager.Initialize(Ioc.Default);
 
         var translator = Ioc.Default.GetRequiredService<ITranslator>();
         translator.RegisterTranslations(Provider.GetTranslations());
@@ -37,7 +35,7 @@ public partial class App : Application
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
+            // Avoid duplicate validations from both Avalonia and the CommunityToolkit.
             // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
             DisableAvaloniaDataAnnotationValidation();
             desktop.MainWindow = new MainWindow { DataContext = new MainWindowViewModel(), };
@@ -48,14 +46,14 @@ public partial class App : Application
 
     private void DisableAvaloniaDataAnnotationValidation()
     {
-        // Get an array of plugins to remove
-        var dataValidationPluginsToRemove =
-            BindingPlugins.DataValidators.OfType<DataAnnotationsValidationPlugin>().ToArray();
-
-        // remove each entry found
-        foreach (var plugin in dataValidationPluginsToRemove)
-        {
-            BindingPlugins.DataValidators.Remove(plugin);
-        }
+        // // Get an array of plugins to remove
+        // var dataValidationPluginsToRemove =
+        //     BindingPlugins.DataValidators.OfType<DataAnnotationsValidationPlugin>().ToArray();
+        //
+        // // remove each entry found
+        // foreach (var plugin in dataValidationPluginsToRemove)
+        // {
+        //     BindingPlugins.DataValidators.Remove(plugin);
+        // }
     }
 }

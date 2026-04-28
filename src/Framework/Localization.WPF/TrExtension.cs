@@ -177,7 +177,7 @@ public sealed class TrExtension
         if (string.IsNullOrWhiteSpace(key))
             return null;
 
-        if (CultureManager.GetTranslator()?.TryGetString(key, @namespace, out var localizedString) == true)
+        if (LocalizationRuntime.GetTranslator()?.TryGetString(key, @namespace, out var localizedString) == true)
             return localizedString;
 
         return new LString

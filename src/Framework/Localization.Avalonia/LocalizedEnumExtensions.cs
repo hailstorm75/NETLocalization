@@ -19,7 +19,7 @@ public static class LocalizedEnumExtensions
     /// <returns>Localized enum wrapper.</returns>
     public static LEnum ToLEnum<TEnum>(this TEnum value)
         where TEnum : struct, Enum
-        => CultureManager.GetTranslator()?.GetEnum(value) ?? LEnum.INVALID;
+        => LocalizationRuntime.GetTranslator()?.GetEnum(value) ?? LEnum.INVALID;
 
     /// <summary>
     /// Converts a nullable enum value to a localized enum wrapper.
@@ -58,7 +58,7 @@ public static class LocalizedEnumExtensions
         if (!actualEnumType.IsEnum)
             throw new ArgumentException("Type must be an enum.", nameof(enumType));
 
-        var translator = CultureManager.GetTranslator();
+        var translator = LocalizationRuntime.GetTranslator();
         if (translator is null)
             return Array.Empty<LEnum>();
 

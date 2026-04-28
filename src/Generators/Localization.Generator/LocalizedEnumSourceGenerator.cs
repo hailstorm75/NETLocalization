@@ -195,7 +195,7 @@ public sealed class LocalizedEnumSourceGenerator : IIncrementalGenerator
 
         indentWriter.WriteLine($"public static global::{L_ENUM_NAME}? ToLEnum(this {enumType} value)");
         indentWriter.Indent++;
-        indentWriter.WriteLine("=> global::Localization.Shared.CultureManager.GetTranslator()?.GetEnum(value);");
+        indentWriter.WriteLine("=> global::Localization.Shared.LocalizationRuntime.GetTranslator()?.GetEnum(value);");
         indentWriter.Indent--;
 
         indentWriter.WriteLineNoTabs(string.Empty);
@@ -204,7 +204,7 @@ public sealed class LocalizedEnumSourceGenerator : IIncrementalGenerator
         indentWriter.WriteLine("{");
         indentWriter.Indent++;
         foreach (var field in enumData.Fields)
-            indentWriter.WriteLine($"yield return global::Localization.Shared.CultureManager.GetTranslator()?.GetEnum({enumType}.{field.Symbol.Name}) ?? global::{L_ENUM_NAME}.INVALID;");
+            indentWriter.WriteLine($"yield return global::Localization.Shared.LocalizationRuntime.GetTranslator()?.GetEnum({enumType}.{field.Symbol.Name}) ?? global::{L_ENUM_NAME}.INVALID;");
         indentWriter.Indent--;
         indentWriter.WriteLine("}");
 

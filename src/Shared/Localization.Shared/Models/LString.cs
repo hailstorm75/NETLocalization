@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
@@ -11,7 +11,7 @@ namespace Localization.Shared.Models;
 /// Localized string
 /// </summary>
 /// <remarks>
-/// The provided string is localized based on the current culture, which is managed by the <see cref="CultureManager"/>.
+/// The provided string is localized based on the current culture, which is managed by the <see cref="ICultureManager"/>.
 /// <para/>
 /// Constant <see cref="LString"/> instances are not affected by culture changes and will always return the same value (see <see cref="CreateConstant"/>)
 /// </remarks>
@@ -24,7 +24,7 @@ public sealed class LString : INotifyPropertyChanged, IEquatable<LString>, IComp
 
     #region Fields
 
-    private static readonly ITranslator? TRANSLATOR = CultureManager.GetTranslator();
+    private ICultureManager? _cultureManager;
     private readonly LString? _formattingSource;
     private readonly LString[] _formattingArgs = [];
     private readonly bool _isConstant;
@@ -61,11 +61,26 @@ public sealed class LString : INotifyPropertyChanged, IEquatable<LString>, IComp
     {
         get
         {
-            if (TRANSLATOR is null)
+            if (_translator is null)
+            {
+                EnsureCultureSubscription();
+                var runtimeTranslator = LocalizationRuntime.GetTranslator();
+                if (runtimeTranslator is null)
+                    return string.Empty;
+
+                if (!IsEmpty)
+                    return _string ??= runtimeTranslator.Translate(Key, Namespace);
+
+                if (_isConstant)
+                    return _string ??= "INVALID CONSTANT";
+                if (_formattingSource is not null)
+                    return string.Format(_formattingSource.String, _formattingArgs.Select(static object (s) => s.String).ToArray());
+
                 return string.Empty;
+            }
 
             if (!IsEmpty)
-                return _string ??= TRANSLATOR.Translate(Key, Namespace);
+                return _string ??= _translator.Translate(Key, Namespace);
 
             if (_isConstant)
                 return _string ??= "INVALID CONSTANT";
@@ -86,8 +101,11 @@ public sealed class LString : INotifyPropertyChanged, IEquatable<LString>, IComp
     /// </summary>
     public LString()
     {
+        _cultureManager = LocalizationRuntime.TryGetCultureManager(out var cultureManager) ? cultureManager : null;
         _isConstant = false;
-        CultureManager.InternalCultureChanged += InternalCultureChangedHandler;
+
+        if (_cultureManager is not null)
+            _cultureManager.CultureChanged += InternalCultureChangedHandler;
     }
 
     /// <summary>
@@ -100,16 +118,19 @@ public sealed class LString : INotifyPropertyChanged, IEquatable<LString>, IComp
         Namespace = string.Empty;
         Key = string.Empty;
 
+        _cultureManager = null;
         _isConstant = true;
     }
 
     private LString(LString formatted, IEnumerable<LString> args)
     {
+        _cultureManager = LocalizationRuntime.TryGetCultureManager(out var cultureManager) ? cultureManager : null;
         _formattingSource = formatted;
         _formattingArgs = args.ToArray();
         _isConstant = false;
 
-        CultureManager.InternalCultureChanged += InternalCultureChangedHandler;
+        if (_cultureManager is not null)
+            _cultureManager.CultureChanged += InternalCultureChangedHandler;
     }
 
     #endregion
@@ -129,7 +150,7 @@ public sealed class LString : INotifyPropertyChanged, IEquatable<LString>, IComp
 
         return (parts[0], parts[1]);
     }
-    
+
     private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
@@ -181,17 +202,32 @@ public sealed class LString : INotifyPropertyChanged, IEquatable<LString>, IComp
     /// <returns>Formatted string</returns>
     public string Format(object arg) => string.Format(this, arg);
 
+    private ITranslator? _translator => LocalizationRuntime.GetTranslator();
+
+    private void EnsureCultureSubscription()
+    {
+        if (_isConstant || _cultureManager is not null)
+            return;
+
+        if (LocalizationRuntime.TryGetCultureManager(out var cultureManager))
+        {
+            _cultureManager = cultureManager;
+            _cultureManager.CultureChanged += InternalCultureChangedHandler;
+        }
+    }
+
     private void InternalCultureChangedHandler(object? sender, CultureChangedMessage message)
     {
-        if (TRANSLATOR is null)
+        var translator = _translator;
+        if (translator is null)
             return;
 
         if (!IsEmpty)
-            String = TRANSLATOR.Translate(Key, Namespace, message.Value);
+            String = translator.Translate(Key, Namespace, message.Value);
         else if (_formattingSource is not null)
             String = string.Format(
-                TRANSLATOR.Translate(_formattingSource.Key, _formattingSource.Namespace, message.Value),
-                _formattingArgs.Select(s => TRANSLATOR.Translate(s.Key, s.Namespace, message.Value) as object).ToArray());
+                translator.Translate(_formattingSource.Key, _formattingSource.Namespace, message.Value),
+                _formattingArgs.Select(s => translator.Translate(s.Key, s.Namespace, message.Value) as object).ToArray());
     }
 
     /// <inheritdoc />
@@ -199,7 +235,7 @@ public sealed class LString : INotifyPropertyChanged, IEquatable<LString>, IComp
     {
         if (ReferenceEquals(this, other))
             return true;
-        
+
         if (other is null)
             return false;
 
@@ -244,7 +280,9 @@ public sealed class LString : INotifyPropertyChanged, IEquatable<LString>, IComp
     /// <inheritdoc />
     public void Dispose()
     {
-        CultureManager.InternalCultureChanged -= InternalCultureChangedHandler;
+        if (_cultureManager is not null)
+            _cultureManager.CultureChanged -= InternalCultureChangedHandler;
+
         _string = null;
     }
 

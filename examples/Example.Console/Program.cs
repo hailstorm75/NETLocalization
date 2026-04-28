@@ -1,18 +1,25 @@
-﻿// See https://aka.ms/new-console-template for more information
+// See https://aka.ms/new-console-template for more information
 
 using Example.Console;
-using Localization.Shared;
+using Localization.Shared.DependencyInjection;
+using Localization.Shared.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
-var translator = new Translator(NullLogger<Translator>.Instance);
+var services = new ServiceCollection()
+    .AddLocalization(_ => { })
+    .AddSingleton(typeof(ILogger<>), typeof(NullLogger<>))
+    .BuildServiceProvider();
+
+var translator = services.GetRequiredService<ITranslator>();
 translator.RegisterTranslations(Provider.GetTranslations());
 
-CultureManager.Initialize(translator);
-
-translator.ChangeCulture("de-de");
+var cultureManager = services.GetRequiredService<ICultureManager>();
+cultureManager.SetLanguage("de-de");
 Console.WriteLine(Provider.Farewell);
 
-translator.ChangeCulture("en");
+cultureManager.SetLanguage("en");
 Console.WriteLine(Provider.Farewell);
 
 Console.ReadKey();

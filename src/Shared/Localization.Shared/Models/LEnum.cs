@@ -1,9 +1,9 @@
-﻿using Localization.Shared.Attributes;
+using Localization.Shared.Attributes;
 using Localization.Shared.Interfaces;
-using System.Runtime.CompilerServices;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace Localization.Shared.Models;
 
@@ -20,7 +20,7 @@ public sealed class LEnum : INotifyPropertyChanged
 {
     /// <inheritdoc />
     public event PropertyChangedEventHandler? PropertyChanged;
-  
+
     #region Fields
 
     /// <summary>
@@ -28,11 +28,12 @@ public sealed class LEnum : INotifyPropertyChanged
     /// </summary>
     public static readonly LEnum INVALID = new("#INVALID ENUM#");
     private readonly ITranslator? _translator;
+    private readonly ICultureManager? _cultureManager;
     private readonly Type _enumType;
     private string _string = string.Empty;
 
     #endregion
-  
+
     #region Properties
 
     /// <summary>
@@ -48,15 +49,16 @@ public sealed class LEnum : INotifyPropertyChanged
     /// Wrapped enum field
     /// </summary>
     public object EnumField { get; }
-  
+
     #endregion
-  
+
     #region Constructors
 
     private LEnum(string text)
     {
         _enumType = typeof(Enum);
         _translator = null;
+        _cultureManager = null;
         EnumField = null!;
         String = text;
     }
@@ -65,14 +67,26 @@ public sealed class LEnum : INotifyPropertyChanged
     /// Default constructor
     /// </summary>
     public LEnum(object enumField)
-        : this(enumField, CultureManager.GetTranslator())
+        : this(
+            enumField,
+            LocalizationRuntime.GetTranslator(),
+            LocalizationRuntime.TryGetCultureManager(out var cultureManager) ? cultureManager : null)
     {
     }
 
     internal LEnum(object enumField, ITranslator? translator)
+        : this(
+            enumField,
+            translator,
+            LocalizationRuntime.TryGetCultureManager(out var cultureManager) ? cultureManager : null)
+    {
+    }
+
+    private LEnum(object enumField, ITranslator? translator, ICultureManager? cultureManager)
     {
         _enumType = enumField.GetType();
         _translator = translator;
+        _cultureManager = cultureManager;
         EnumField = enumField;
 
         if (!_enumType.IsEnum || !_enumType.IsEnumDefined(enumField))
@@ -80,9 +94,10 @@ public sealed class LEnum : INotifyPropertyChanged
 
         String = TranslateEnumField(_translator?.CurrentCulture ?? string.Empty);
 
-        CultureManager.InternalCultureChanged += InternalCultureChangeHandler;
+        if (_cultureManager is not null)
+            _cultureManager.CultureChanged += InternalCultureChangeHandler;
     }
-  
+
     #endregion
 
     #region Methods

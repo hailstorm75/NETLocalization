@@ -56,7 +56,7 @@ public sealed class TrEnumBinding : MarkupExtension
         if (EnumType is null)
             return null;
 
-        var translator = CultureManager.GetTranslator();
+        var translator = LocalizationRuntime.GetTranslator();
         if (translator is null)
             return Array.Empty<object>();
 

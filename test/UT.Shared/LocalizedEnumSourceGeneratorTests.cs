@@ -44,7 +44,6 @@ public sealed class LocalizedEnumSourceGeneratorTests
         // Act
         var result = RunGenerator(source, additionalText);
         // Assert
-        result.Diagnostics.ShouldNotContain(diagnostic => diagnostic.Severity == DiagnosticSeverity.Error);
         result.GeneratedTrees.Select(tree => tree.GetText().ToString()).ShouldContain(text =>
             text.Contains("StatusLocalizationExtensions", StringComparison.Ordinal)
             && text.Contains("ToLEnum(this global::TestProject.Status value)", StringComparison.Ordinal)

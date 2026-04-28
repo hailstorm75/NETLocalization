@@ -147,8 +147,7 @@ public sealed class LEnumTests
 
     private static Translator CreateTranslator()
     {
-        var translator = new Translator(Substitute.For<ILogger<Translator>>());
-        CultureManager.Initialize(translator);
+        var translator = new Translator(Substitute.For<ILogger<Translator>>(), new CultureManager());
 
         return translator;
     }

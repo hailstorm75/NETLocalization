@@ -23,7 +23,7 @@ public sealed class LStringJsonConverter : JsonConverter<LString>
         if (@namespace is null || key is null)
             throw new JsonException();
 
-        if (CultureManager.TryRetrieveString(@namespace, key, out var cached))
+        if (LocalizationRuntime.TryRetrieveString(@namespace, key, out var cached))
             return cached;
 
         return new LString

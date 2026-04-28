@@ -1,6 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Localization.Shared;
 using Localization.Shared.Interfaces;
 using Localization.Shared.Models;
 using System.Collections.ObjectModel;
@@ -21,5 +20,6 @@ public sealed partial class MainWindowViewModel : ObservableObject
             Languages.Add(lang);
     }
 
-    partial void OnLanguageChanged(Language value) => CultureManager.SetLanguage(value);
+    partial void OnLanguageChanged(Language value)
+        => Ioc.Default.GetRequiredService<ICultureManager>().SetLanguage(value);
 }

@@ -84,29 +84,19 @@ Once the source generators kick in, your class will now have everything necessar
 
 ## Initialization within UI app
 
-If your application does not use [DI](https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection), then make sure to call the following code at startup:
-
-```csharp
-var translator = new Translator(NullLogger<Translator>.Instance);
-
-CultureManager.Initialize(translator);
-```
-
-If your application does use DI, e.g., from [CommunityToolkit.MVVM](https://learn.microsoft.com/en-us/dotnet/communitytoolkit/mvvm/ioc), then make sure to call the following code at startup:
+Register localization through DI with `AddLocalization`:
 
 ```csharp
 var serviceCollection = new ServiceCollection();
 serviceCollection
-    .AddSingleton<ITranslator, Translator>()
+    .AddLocalization(_ => { })
     .AddSingleton(typeof(ILogger<>), typeof(NullLogger<>));
 
 // Replace with your own DI provider
 Ioc.Default.ConfigureServices(serviceCollection.BuildServiceProvider());
-
-CultureManager.Initialize(Ioc.Default);
 ```
 
-> In both cases, you might want to consider replacing `NullLogger<>` with proper logging
+> You might want to replace `NullLogger<>` with proper logging.
 
 After this, you'll have to load up the `ITranslator` instance with translations from your providers.
 Assuming you have the `ApplicationTranslations` provider, you can load the translations like so:
@@ -117,7 +107,7 @@ translator.RegisterTranslations(ApplicationTranslations.GetTranslations());
 
 ## Changing language
 
-You can change the application language during runtime via the singleton class `CultureManager` by calling `CultureManager.SetLanguage(...)`.
+Resolve `ICultureManager` and call `SetLanguage(...)`.
 The `SetLanguage` method takes in an instance of `Language` or a `string` (via implicit conversion). The `string` must be a valid [`RFC 4646`](https://datatracker.ietf.org/doc/html/rfc4646) language key.
 
 You can access the available `Language` keys from the `ITranslator`'s `LoadedLanguages` property.

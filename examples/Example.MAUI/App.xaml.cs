@@ -1,6 +1,7 @@
-﻿using CommunityToolkit.Mvvm.DependencyInjection;
-using Localization.Shared;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using Localization.Shared.DependencyInjection;
 using Localization.Shared.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -14,11 +15,9 @@ public sealed partial class App
 
         var serviceCollection = new ServiceCollection();
         serviceCollection
-            .AddSingleton<ITranslator, Translator>()
+            .AddLocalization(_ => { })
             .AddSingleton(typeof(ILogger<>), typeof(NullLogger<>));
         Ioc.Default.ConfigureServices(serviceCollection.BuildServiceProvider());
-
-        CultureManager.Initialize(Ioc.Default);
 
         var translator = Ioc.Default.GetRequiredService<ITranslator>();
         translator.RegisterTranslations(Provider.GetTranslations());
