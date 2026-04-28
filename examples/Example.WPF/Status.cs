@@ -2,7 +2,7 @@ using Localization.Shared.Attributes;
 
 namespace Example.WPF;
 
-[LocalizedEnum("Test")]
+[LocalizedEnum<Provider>]
 public enum Status
 {
     Draft,

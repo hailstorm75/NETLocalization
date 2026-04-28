@@ -1,6 +1,7 @@
 using Bogus;
 using Localization.Shared;
 using Localization.Shared.Attributes;
+using Localization.Shared.Interfaces;
 using Localization.Shared.Models;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
@@ -13,7 +14,7 @@ public sealed class LEnumTests
 {
     private enum TestEnum { Value1, Value2 }
 
-    [LocalizedEnum("EnumTests")]
+    [LocalizedEnum<TestProvider>]
     private enum LocalizedTestEnum
     {
         Value1,
@@ -30,13 +31,15 @@ public sealed class LEnumTests
         Value1
     }
 
-    private sealed class TestProvider
+    private sealed class TestProvider : ITranslationProvider
     {
         public static LString StrongValue { get; } = new()
         {
-            Namespace = "EnumTests",
+            Namespace = GetNamespace(),
             Key = nameof(StrongValue)
         };
+
+        public static string GetNamespace() => "EnumTests";
     }
 
     [Fact]
