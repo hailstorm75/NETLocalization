@@ -8,4 +8,16 @@
     <item lang="en">Bye</item>
     <item lang="de-de">Auf Wiedersehen</item>
   </set>
+  <set key="Draft" description="Draft status">
+    <item lang="en">Draft</item>
+    <item lang="de-de">Entwurf</item>
+  </set>
+  <set key="PublishedStatus" description="Published status">
+    <item lang="en">Published</item>
+    <item lang="de-de">Veröffentlicht</item>
+  </set>
+  <set key="Archived" description="Archived status">
+    <item lang="en">Archived</item>
+    <item lang="de-de">Archiviert</item>
+  </set>
 </translations>

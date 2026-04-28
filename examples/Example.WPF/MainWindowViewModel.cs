@@ -10,6 +10,7 @@ namespace Example.WPF;
 public sealed partial class MainWindowViewModel : ObservableObject
 {
     [ObservableProperty] private Language _language = "en";
+    [ObservableProperty] private Status _status = Status.Draft;
 
     public ObservableCollection<Language> Languages { get; } = new();
 

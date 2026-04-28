@@ -21,6 +21,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Content="{wpf:Tr String={x:Static sharedLocalizations:SharedLocalizationsProvider.Cat}}" />
@@ -33,5 +34,10 @@
 
         <Label Grid.Row="2" Content="{wpf:Tr String={x:Static wpf1:Provider.Greeting}}" />
         <Label Grid.Row="3" Content="{wpf:Tr String={x:Static wpf1:Provider.Farewell}}" />
+        <ComboBox
+            Grid.Row="4"
+            DisplayMemberPath="String"
+            ItemsSource="{wpf:TrEnumBinding {x:Type wpf1:Status}}"
+            SelectedItem="{Binding Status, Converter={wpf:TrEnumConverter}}" />
     </Grid>
 </Window>

@@ -10,6 +10,7 @@ namespace Example.Avalonia.ViewModels;
 public sealed partial class MainWindowViewModel : ViewModelBase
 {
     [ObservableProperty] private Language _language = "en";
+    [ObservableProperty] private Status _status = Status.Draft;
 
     public ObservableCollection<Language> Languages { get; } = new();
 
