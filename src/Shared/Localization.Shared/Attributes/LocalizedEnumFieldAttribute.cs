@@ -1,29 +1,38 @@
-﻿using System.Runtime.CompilerServices;
-
 namespace Localization.Shared.Attributes;
 
 /// <summary>
-/// Attribute to localize an enum
+/// Attribute to localize an enum field with a specific translation key.
 /// </summary>
-[AttributeUsage(AttributeTargets.Enum | AttributeTargets.Field)]
+[AttributeUsage(AttributeTargets.Field)]
 public sealed class LocalizedEnumFieldAttribute : Attribute
 {
     /// <summary>
-    /// Namespace of the translation
+    /// Provider type that owns the strongly typed translation key.
     /// </summary>
-    public string Namespace { get; }
+    public Type? ProviderType { get; }
 
     /// <summary>
-    /// Key of the translation
+    /// Key of the translation.
     /// </summary>
-    public string Key { get; set; }
+    public string Key { get; }
 
     /// <summary>
-    /// Default constructor
+    /// Initializes a localized enum field with an explicit translation key.
     /// </summary>
-    public LocalizedEnumFieldAttribute(string @namespace, [CallerMemberName] string? key = "")
+    /// <param name="key">Translation key.</param>
+    public LocalizedEnumFieldAttribute(string key)
     {
-        Key = key ?? string.Empty;
-        Namespace = @namespace;
+        Key = key;
+    }
+
+    /// <summary>
+    /// Initializes a localized enum field with a provider-scoped translation key.
+    /// </summary>
+    /// <param name="providerType">Generated translation provider type.</param>
+    /// <param name="key">Translation key.</param>
+    public LocalizedEnumFieldAttribute(Type providerType, string key)
+    {
+        ProviderType = providerType;
+        Key = key;
     }
 }
