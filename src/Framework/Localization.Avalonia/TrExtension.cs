@@ -13,7 +13,7 @@ namespace Localization.Avalonia;
 /// </summary>
 public sealed class TrExtension : MarkupExtension
 {
-    private readonly IBinding[] _args = [];
+    private readonly BindingBase[] _args = [];
 
     #region Properties
 
@@ -28,10 +28,10 @@ public sealed class TrExtension : MarkupExtension
 
     #region Constructors
 
-    private static IBinding SanitizeArgument(object argument)
+    private static BindingBase SanitizeArgument(object argument)
         => argument switch
         {
-            IBinding binding => binding,
+            BindingBase binding => binding,
             LString locString => new Binding { Path = nameof(LString.String), Source = locString },
             _ => new Binding { Source = argument }
         };
@@ -39,29 +39,19 @@ public sealed class TrExtension : MarkupExtension
     public TrExtension() { }
 
     public TrExtension(object arg0)
-    {
-        _args = new[] { SanitizeArgument(arg0) };
-    }
+        => _args = [SanitizeArgument(arg0)];
 
-    public TrExtension(IBinding arg0, IBinding arg1)
-    {
-        _args = new[] { SanitizeArgument(arg0), SanitizeArgument(arg1) };
-    }
+    public TrExtension(BindingBase arg0, BindingBase arg1)
+        => _args = [SanitizeArgument(arg0), SanitizeArgument(arg1)];
 
-    public TrExtension(IBinding arg0, IBinding arg1, IBinding arg2)
-    {
-        _args = new[] { SanitizeArgument(arg0), SanitizeArgument(arg1), SanitizeArgument(arg2) };
-    }
+    public TrExtension(BindingBase arg0, BindingBase arg1, BindingBase arg2)
+        => _args = [SanitizeArgument(arg0), SanitizeArgument(arg1), SanitizeArgument(arg2)];
 
-    public TrExtension(IBinding arg0, IBinding arg1, IBinding arg2, IBinding arg3)
-    {
-        _args = new[] { SanitizeArgument(arg0), SanitizeArgument(arg1), SanitizeArgument(arg2), SanitizeArgument(arg3) };
-    }
+    public TrExtension(BindingBase arg0, BindingBase arg1, BindingBase arg2, BindingBase arg3)
+        => _args = [SanitizeArgument(arg0), SanitizeArgument(arg1), SanitizeArgument(arg2), SanitizeArgument(arg3)];
 
-    public TrExtension(IBinding arg0, IBinding arg1, IBinding arg2, IBinding arg3, IBinding arg4)
-    {
-        _args = new[] { SanitizeArgument(arg0), SanitizeArgument(arg1), SanitizeArgument(arg2), SanitizeArgument(arg3), SanitizeArgument(arg4) };
-    }
+    public TrExtension(BindingBase arg0, BindingBase arg1, BindingBase arg2, BindingBase arg3, BindingBase arg4)
+        => _args = [SanitizeArgument(arg0), SanitizeArgument(arg1), SanitizeArgument(arg2), SanitizeArgument(arg3), SanitizeArgument(arg4)];
 
     #endregion
 

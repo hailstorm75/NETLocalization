@@ -11,7 +11,7 @@ namespace Localization.Avalonia;
 internal sealed class TrArgumentConverter : IMultiValueConverter
 {
     public required LString Data { get; init; }
-    public required IReadOnlyCollection<IBinding> Arguments { get; init; } = [];
+    public required IReadOnlyCollection<BindingBase> Arguments { get; init; } = [];
     public required IValueConverter? Converter { get; init; }
     public required object? ConverterParameter { get; init; }
     public required CultureInfo ConverterCulture { get; init; }
