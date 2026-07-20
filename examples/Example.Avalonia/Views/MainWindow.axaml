@@ -40,8 +40,7 @@
         <Label Grid.Row="3" Content="{avalonia:Tr String={x:Static local:Provider.Farewell}}" />
         <ComboBox
           Grid.Row="4"
-          ItemsSource="{avalonia:TrEnumBinding {x:Type local:Status}}"
-          SelectedItem="{Binding Status, Converter={avalonia:TrEnumConverter}}" />
+          avalonia:TrEnumExtension.SelectedEnum="{Binding Status}" />
     </Grid>
 
 </Window>
