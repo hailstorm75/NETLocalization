@@ -27,8 +27,7 @@ public sealed class LEnum : INotifyPropertyChanged
     /// Instance of LocEnum that represents an invalid enum
     /// </summary>
     public static readonly LEnum INVALID = new("#INVALID ENUM#");
-    private static readonly ITranslator? TRANSLATOR = CultureManager.GetTranslator();
-
+    private readonly ITranslator? _translator;
     private readonly Type _enumType;
     private string _string = string.Empty;
 
@@ -57,6 +56,7 @@ public sealed class LEnum : INotifyPropertyChanged
     private LEnum(string text)
     {
         _enumType = typeof(Enum);
+        _translator = null;
         EnumField = null!;
         String = text;
     }
@@ -65,17 +65,20 @@ public sealed class LEnum : INotifyPropertyChanged
     /// Default constructor
     /// </summary>
     public LEnum(object enumField)
+        : this(enumField, CultureManager.GetTranslator())
+    {
+    }
+
+    internal LEnum(object enumField, ITranslator? translator)
     {
         _enumType = enumField.GetType();
+        _translator = translator;
         EnumField = enumField;
 
         if (!_enumType.IsEnum || !_enumType.IsEnumDefined(enumField))
             throw new NotSupportedException("The supplied object is not an enum field");
 
-        if (TRANSLATOR is null)
-            throw new InvalidOperationException($"The {nameof(ITranslator)} instance is not initialized.");
-
-        String = TranslateEnumField(TRANSLATOR.CurrentCulture);
+        String = TranslateEnumField(_translator?.CurrentCulture ?? string.Empty);
 
         CultureManager.InternalCultureChanged += InternalCultureChangeHandler;
     }
@@ -96,30 +99,33 @@ public sealed class LEnum : INotifyPropertyChanged
 
     private string TranslateEnumField(string culture)
     {
-        if (TRANSLATOR is null)
+        if (_translator is null)
             return "#TRANSLATOR MISSING#";
 
         var enumName = Enum.GetName(_enumType, EnumField)!;
+        var enumAttribute = _enumType.GetCustomAttribute<LocalizedEnumAttribute>(false);
+        if (enumAttribute is null || string.IsNullOrWhiteSpace(enumAttribute.Namespace))
+            return "#" + enumName;
+
         var memberInfos = _enumType.GetMember(enumName);
         var enumValueMemberInfo = memberInfos.FirstOrDefault(m => m.DeclaringType == _enumType);
         if (enumValueMemberInfo is null)
             return "#" + enumName;
 
-        var valueAttributes = enumValueMemberInfo.GetCustomAttribute(typeof(LocalizedEnumFieldAttribute), false);
-        if (valueAttributes is not LocalizedEnumFieldAttribute locEnumAttribute)
-            return "#" + enumName;
+        var enumFieldAttribute = enumValueMemberInfo.GetCustomAttribute<LocalizedEnumFieldAttribute>(false);
+        var key = enumFieldAttribute?.Key;
+        if (string.IsNullOrWhiteSpace(key))
+            key = enumName;
 
-        return string.IsNullOrEmpty(locEnumAttribute.Key)
-            ? TRANSLATOR.Translate(enumName, locEnumAttribute.Namespace, culture)
-            : string.Empty;
+        return _translator.Translate(key, enumAttribute.Namespace, culture);
     }
 
     private void InternalCultureChangeHandler(object? recipient, CultureChangedMessage message)
     {
-        if (TRANSLATOR is null)
+        if (_translator is null)
             return;
 
-        String = TranslateEnumField(TRANSLATOR.CurrentCulture);
+        String = TranslateEnumField(message.Value);
     }
 
     /// <inheritdoc />

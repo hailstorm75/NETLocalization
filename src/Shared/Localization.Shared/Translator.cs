@@ -60,7 +60,7 @@ public class Translator : ITranslator, IDisposable
         if (_enums.TryGetValue(enumField, out var locEnum))
             return locEnum;
 
-        locEnum = new LEnum(enumField);
+        locEnum = new LEnum(enumField, this);
         _enums[enumField] = locEnum;
 
         return locEnum;
@@ -74,10 +74,13 @@ public class Translator : ITranslator, IDisposable
         TranslatorLogger.LogRegisteringTranslation(translations.Namespace, translations.Key, _logger);
 
         if (!_translations.TryGetValue(translations.Namespace, out var localizations))
+        {
             _translations[translations.Namespace] = new ConcurrentDictionary<string, TranslationSet>(StringComparer.OrdinalIgnoreCase)
             {
                 [translations.Key] = translations
             };
+            RegisterLanguages(translations);
+        }
         else
         {
 #if DEBUG
