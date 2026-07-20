@@ -1,14 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Authors>Denis Akopjan</Authors>
+        <Description>.NET Localization library. This is the WPF-specific library handling run-time updateable localization.</Description>
+        <Title>DAK.NETLocalization.Shared</Title>
+        <PackageProjectUrl>https://github.com/hailstorm75/NETLocalization</PackageProjectUrl>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Localization.Shared\Localization.Shared.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\Shared\Localization.Shared\Localization.Shared.csproj" />
+    </ItemGroup>
 
 </Project>
